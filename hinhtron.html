@@ -9,16 +9,20 @@
 <body>
     <script>
         let r=prompt('Nhập bán kính hình tròn');
-        const Pi=3.1414;
         let banKinh=parseFloat(r);
-        let C=2*r*Pi;
-        let S=r*r*Pi;
+        let C=2*r*Math.PI;
+        let S=Math.pow(r,2)*Math.PI.toFixed(3);
 
-        if (r<0) { alert('Bán kính hình tròn phải lớn hơn 0');
+        
+        if (r<0||isNaN(r)) { alert('Bạn nhập sai dữ liệu');
             
-        } else { document.write("Chu vi hình tròn là "+ C + ", Diện tích hình tròn là "+S);
+        } else { document.write("Chu vi hình tròn là "+ C.toFixed(3) + ", Diện tích hình tròn là "+S);
             
         }
+        
+       /* alert(`Chu vi hình tròn là ${C.toFixed(3)}, Diện tích hình tròn là ${Math.round(S)}`);
+        => toFixed(3) -> lấy 3 số thập phân đằng sau. Math.round(biến) lấy số nguyên */
+        
     </script>
 </body>
 </html>

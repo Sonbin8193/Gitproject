@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let tienVay=prompt('Nhập số tiền bạn muốn vay');
+        let laiSuat=prompt('Lãi suất hiện tại');
+        let nam=prompt('Số năm vay tiền');
+        let a=parseInt(tienVay);
+        let b=parseFloat(laiSuat);
+        let c=parseInt(nam);
+
+        let tienTra=a+(a*(b/100))*c;
+        if (tienTra>0&&!isNaN(tienTra)) { document.write(`Số tiền bạn phải trả sau ${nam} năm là ${tienTra}`);
+        
+        } else { alert('Dữ liệu bạn nhập chưa đúng, vui lòng nhập lại');
+            
+        }
+    </script>
+</body>
+</html>
