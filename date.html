@@ -18,7 +18,7 @@
         if (inputMonth>12) { alert('Nhập sai tháng rồi');
             
         }
-        if (inputDay||inputMonth==null) {  document.write('Không thể hiển thị do sai dữ liệu ngày tháng');
+        if (inputDay>31||inputMonth>12) {  document.write('Không thể hiển thị do sai dữ liệu ngày tháng');
             
         } else {   document.write("Hôm nay là ngày " + inputDay + "-" + inputMonth + "-" + inputYear);
             
