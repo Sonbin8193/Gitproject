@@ -11,14 +11,19 @@
         let inputDay=prompt('Nhập ngày');
         let inputMonth=prompt('Nhập tháng');
         let inputYear=prompt('Nhập năm');
+        let year=parseInt(inputYear);
+        
+        if (isNaN(year)) { alert('Nhập sai năm rồi');
+        }
 
         if (inputDay>31) { alert('Nhập sai ngày rồi');
             
         }
+       
         if (inputMonth>12) { alert('Nhập sai tháng rồi');
-            
         }
-        if (inputDay>31||inputMonth>12) {  document.write('Không thể hiển thị do sai dữ liệu ngày tháng');
+       
+        if (inputDay>31||inputMonth>12||isNaN(year)) {  document.write('Không thể hiển thị do sai dữ liệu ngày tháng');
             
         } else {   document.write("Hôm nay là ngày " + inputDay + "-" + inputMonth + "-" + inputYear);
             
