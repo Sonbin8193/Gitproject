@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let r=prompt('Nhập bán kính hình tròn');
+        const Pi=3.1414;
+        let banKinh=parseFloat(r);
+        let C=2*r*Pi;
+        let S=r*r*Pi;
+
+        if (r<0) { alert('Bán kính hình tròn phải lớn hơn 0');
+            
+        } else { document.write("Chu vi hình tròn là "+ C + ", Diện tích hình tròn là "+S);
+            
+        }
+    </script>
+</body>
+</html>
