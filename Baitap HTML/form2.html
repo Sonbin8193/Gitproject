@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        div.a{text-align: left;
+        }
+        p.space{padding-left: 24px;}
+        p.space2{padding-left: 10px;}
+        input.space3{padding-left: 30px;}
+        form.form1{ background-color: bisque;height: fit-content;width: 50%;}
+    </style>
+</head>
+<body>
+    <div>
+    <form class="form1" action="" method="get">
+        <table width="100%" cellspacing="5" cellpadding="5">
+            <tr>
+                <td align="center" style="background-color: rgb(255, 166, 0);"> <b>SỞ THÍCH CỦA BẠN</b></td>
+            </tr>
+        </table>
+        <div class="a">
+        <p>Họ và tên: <input type="text" name="name" id="name" placeholder="Nhập tên của bạn"></p>
+        <p class="space">Email: <input type="email" name="email" id="email" placeholder="sample@mail.abc"></p>
+        <p class="space2">Sở thích: <table>
+                <tr>
+                    <td><input type="checkbox" name="fav" id="1">Thể thao</td>
+                    <td><input type="checkbox" name="fav" id="2"> Âm nhạc</td>
+                    <td> <input type="checkbox" name="fav" id="3"> Đọc sách</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="fav" id="4"> Lướt web</td>
+                    <td><input type="checkbox" name="fav" id="5"> Chơi game</td>
+                    <td> <input type="checkbox" name="fav" id="6"> Điện ảnh</td>
+                </tr>
+                <tr>
+                    <td> <input type="checkbox" name="fav" id="7"> Du lịch </td>
+                </tr>
+           </table></p>
+
+        <button type="submit" name="submit">Gửi thông tin</button>
+        <button type="reset" name="reset">Nhập lại</button>
+    </form>
+    </div>
+    <hr>
+    <div>
+        <form action="" method="get" class="form1">
+            <table width="100%" cellspacing="5" cellpadding="5">
+            <tr>
+                <td align="center" style="background-color: rgb(47, 148, 243);"> <b>ĐĂNG KÝ HỌC VIÊN</b></td>
+            </tr>
+        </table>
+        <table cellspacing="5" cellpadding="5">
+            <tr>
+                <td> Họ và tên</td> 
+                <td><input type="text" name="name" id="name" placeholder="Nhập tên của bạn"></td> 
+            </tr>
+        
+        <tr>
+            <td>Ngày sinh</td>
+            <td><input type="date" name="birth" id="birth" placeholder="dd-mm-yyyy"></td>
+        </tr>
+        <tr>
+            <td>Giới tính</td>
+            <td><input type="radio" name="genre" id="1" checked> Nam
+                <input type="radio" name="genre" id="2"> Nữ</td>
+        </tr>
+        <tr>
+            <td>Địa chỉ</td>
+            <td><textarea cols="20" rows="5"></textarea></td>
+        </tr>
+        <tr>
+            <td>Lớp</td>
+            <td><select name="lop" id="lop">
+                <option value="1"> Lớp A</option>
+                <option value="2"> Lớp B</option>
+                <option value="3"> Lớp C</option></td>
+        </tr>
+        </select></td>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" name="email" id="email"></td>
+        </tr>
+        <tr>
+            <td>Điện thoại</td>
+            <td><input type="number" name="phone" id="phone"></td>
+        </tr>
+        </table>
+        <button type="submit" name="submit1">Đăng ký</button>
+        <button type="reset" name="reset1">Nhập lại</button>
+        </form>
+        
+    </div>
+</body>
+</html>
