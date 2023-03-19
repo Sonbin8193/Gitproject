@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        </head>
+        <body>
+       <h1 id="1">Chào mừng <b>BẠN</b> nhỏ</h1>
+       <table style="width:100%" border="1">  
+        <tr>  
+          <th>Name</th>  
+          <th>Mobile No.</th>  
+        </tr>  
+        <tr>  
+            <td rowspan="2">Mobile No.</td>  
+            <td>No.</td>  
+          </tr>  
+        <tr>  
+          <td>7503520801</td>  
+        </tr>  
+      </table> 
+       <script>
+        let theH1=document.getElementById("1");
+
+        theH1.style.color="red";
+        theH1.style.background="black";
+
+        let noiDung=prompt(" Nhập lời chào ");
+        theH1.innerHTML=noiDung;
+       </script>
+        </body>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Table</title>
+</head>
+<body>
+    <div id="div1">
+    </div>
+    <form action="">
+        <input type="number"  name="table"  id="insertcol"  placeholder="insertColumn"><br>
+        <input type="number"  name="table"  id="insertrow"  placeholder="insertRow"><br>
+        <button type="button"   onclick="creatTable()">Xác nhận</button>
+    </form>
+        <button type="reset" onclick="reset()">Reset</button>
+    
+    <script>
+        function creatTable() {
+            let numRow=document.getElementById("insertrow").value;
+            let row=parseInt(numRow);
+            let numCol=document.getElementById("insertcol").value;
+            let col=parseInt(numCol);
+            let countr=1;
+            let countc=1;
+            let count=1;
+            let table=document.getElementById("div1");
+            let rowCol=document.createElement("table");
+            rowCol.border= "1";
+            rowCol.cellPadding= "10";
+            rowCol.cellSpacing= "0";
+            rowCol.style.font= "bold";
+
+            do {let myRow=document.createElement("tr"); 
+                do {let myCol=document.createElement("td");
+                    myCol.innerHTML=("Ô "+count);
+                    countc=++countc;
+                    count=++count;
+                    myRow.appendChild(myCol);
+                } while (countc<(col+1));
+                rowCol.appendChild(myRow);
+                countc=1;
+                countr=++countr;
+            } while (countr<(row+1));
+            table.appendChild(rowCol);
+        }
+        function reset() {
+           document.getElementById("div1").remove();
+        }
+    </script>
+</body>
+</html>

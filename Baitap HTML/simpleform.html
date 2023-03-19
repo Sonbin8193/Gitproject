@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo form cơ bản</title>
+    <style>
+        .wufoo {
+        font-family: "Lucida Grande","Lucida Sans Unicode", Tahoma, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <form method="get" action="simpleform.html" class = "wufoo">
+        <fieldset>
+            <legend><h3>OrderForm</h3></legend>
+            <p>What would you like to buy?</p>
+            <select name="goods" id="goods">
+                <option value="">A</option>
+                <option value="">B (+0.5$)</option>
+                <option value="">C (+1.5$)</option>
+            </select>
+            <p>How many would you like to order?</p>
+            <input type="radio"  name="money"    placeholder="Chọn sản phẩm"> 1 - 10$ <br>
+            <input type="radio"  name="money"    placeholder="Chọn sản phẩm"> 2 - 20$ <br>
+            <input type="radio"  name="money"    placeholder="Chọn sản phẩm"> 3 - 25$ <br>
+            <p>Name</p>
+            <input type="text"  name="name" placeholder="First Name">
+            <input type="text"  name="name" placeholder="Last Name">
+            <p>Email</p>
+            <input type="email" name="email"    placeholder="sample@mail.com">
+            <p>Phone Number</p>
+            <input type="text"  name="phone"  size="5"> -
+            <input type="text"  name="phone"  size="5"> -
+            <input type="text"  name="phone"  size="5"><br><br>
+        
+            <button type="submit" id="submit">Order</button>
+
+
+        </fieldset>
+    </form>
+</body>
+</html>

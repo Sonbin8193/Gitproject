@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1">
+        <p id="p1"> Đây là đoạn văn số 1</p>
+        <p id="p2"> Đây là đoạn văn số 2</p>
+
+        <button type="button"  id="p4" onclick="themLine()">Thêm đoạn văn</button>
+    </div>
+    <script>
+        let p3=document.createElement("p");
+        p3.innerHTML="Đây là đoạn văn số 3";
+
+        let div=document.getElementById("div1");
+        let p1=document.getElementById("p1");
+        let p2=document.getElementById("p2");
+        div.insertBefore(p3, p2);
+       
+
+        // document.getElementById("p2").remove(); Xóa phần tử
+     
+        function themLine() { 
+
+            let theP=document.getElementsByTagName("p"); //đếm số phần tử thẻ P
+            let p4=document.createElement("p");
+            p4.innerHTML="Đây là đoạn văn số " +(theP.length + 1); //số phần tử thẻ p +1
+            div.appendChild(p4);
+            console.log(p4.length);
+
+        }
+    </script>
+</body>
+</html>
