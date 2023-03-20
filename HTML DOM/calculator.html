@@ -10,8 +10,8 @@
     <h2>CACULATOR</h2>
     <form action="">
         <input type="text" name="number" id="number1">
+        <p id="math"></p>
         <input type="text" name="number" id="number2"><br><br>
-
         <input type="button" onclick="add()" id="add1" value=" + ">
         <input type="button" onclick="sub()" id="sub1" value=" - ">
         <input type="button" onclick="multi()" id="multi1" value=" * ">
@@ -25,9 +25,20 @@
             s1=parseFloat(a);
             let b=document.getElementById("number2").value;
             s2=parseFloat(b);
-            
             phepcong=s1+s2;
             document.getElementById("ketqua").innerText=(`= ${phepcong}`);
+            document.getElementById("math").innerHTML=("+");
+            ;}
+        );
+        let tru=document.getElementById("sub1");
+        tru.addEventListener('click', function sub() {
+            let a=document.getElementById("number1").value;
+            s1=parseFloat(a);
+            let b=document.getElementById("number2").value;
+            s2=parseFloat(b);
+            pheptru=s1-s2;
+            document.getElementById("ketqua").innerText=(`= ${pheptru}`);
+            document.getElementById("math").innerHTML=("-");
             ;}
         );
         
