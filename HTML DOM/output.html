@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiển thị đầu ra</title>
+</head>
+<body>
+    Bài 1 alert <br>
+    <button type="submit" onclick="showmes1()">Click</button>
+    <hr>
+    Bài 2 innerHTML
+    <div id="hello"></div>
+    <button type="submit" onclick="showmes2()">Click</button>
+    <hr>
+    Bài3 documentwrite <br>
+    <button type="submit" onclick="showmes3()">Click</button>
+    <hr>
+    Bài 4 consolelog <br>
+    <button type="submit" onclick="showmes4()">Click</button>
+    <script>
+        function showmes1(){
+            alert("Xin chào");
+        }
+        function showmes2(){
+            document.getElementById("hello").innerHTML="Xin chào";
+        }
+        function showmes3(){
+            document.write("Xin chào");
+        }
+        function showmes4(){
+            console.log("Xin chào");
+        }
+    </script>
+</body>
+</html>
