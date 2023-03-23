@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caculator</title>
 </head>
+<style>
+    button {
+        height: 30px;
+        width: 45px;
+    }
+</style>
 <body>
     <h2>CACULATOR</h2>
     <form action="">
-        <input type="text" name="number" id="number1">
+        <input type="number" name="number" id="number1">
         <p id="math"></p>
-        <input type="text" name="number" id="number2"><br><br>
+        <input type="number" name="number" id="number2"><br><br>
         <input type="button" onclick="add()" id="add1" value=" + ">
         <input type="button" onclick="sub()" id="sub1" value=" - ">
         <input type="button" onclick="multi()" id="multi1" value=" * ">
@@ -19,30 +25,87 @@
     </form>
     <p  id="ketqua"></p>
 <script>
-        let cong=document.getElementById("add1");
-        cong.addEventListener('click', function add() {
-            let a=document.getElementById("number1").value;
-            s1=parseFloat(a);
-            let b=document.getElementById("number2").value;
-            s2=parseFloat(b);
-            phepcong=s1+s2;
+       
+        function add() {
+            let a=parseFloat(document.getElementById("number1").value);
+            let b=parseFloat(document.getElementById("number2").value);
+            phepcong=a+b;
             document.getElementById("ketqua").innerText=(`= ${phepcong}`);
             document.getElementById("math").innerHTML=("+");
             ;}
-        );
-        let tru=document.getElementById("sub1");
-        tru.addEventListener('click', function sub() {
-            let a=document.getElementById("number1").value;
-            s1=parseFloat(a);
-            let b=document.getElementById("number2").value;
-            s2=parseFloat(b);
-            pheptru=s1-s2;
+        function sub() {
+            let a=parseFloat(document.getElementById("number1").value);
+            let b=parseFloat(document.getElementById("number2").value);
+            pheptru=a-b;
             document.getElementById("ketqua").innerText=(`= ${pheptru}`);
             document.getElementById("math").innerHTML=("-");
             ;}
-        );
-        
+        function multi() {
+            let a=parseFloat(document.getElementById("number1").value);
+            let b=parseFloat(document.getElementById("number2").value);
+            phepnhan=a*b;
+            document.getElementById("ketqua").innerText=(`= ${phepnhan}`);
+            document.getElementById("math").innerHTML=("x");
+            ;}
+       function div() {
+            let a=parseFloat(document.getElementById("number1").value);
+            let b=parseFloat(document.getElementById("number2").value);
+            phepchia=a/b;
+            document.getElementById("ketqua").innerText=(`= ${phepchia}`);
+            document.getElementById("math").innerHTML=("/");
+            ;}
 </script>
-
+<hr>
+<h2><b>MÁY TÍNH NÂNG CAO</b></h2>
+<table style="background-color: bisque; height: max-content; width: max-content;">
+    <tr>
+        <th colspan="8"><input id="screen" style="width: 200px;height: 50px;" disabled></th>
+    </tr>
+    <tr>
+        <td><button type="button" id="open" onclick="display('(')">(</button> </td>
+        <td><button type="button" id="close"onclick="display(')')">)</button> </td>
+        <td><button type="button" id="phanTram" onclick="display('%')">%</button> </td>
+        <td><button type="button" id="reset" onclick="reset()">AC</button> </td>
+    </tr>
+    <tr>
+        <td><button type="button" id="so7" onclick="display('7')">7</button> </td>
+        <td><button type="button" id="so8" onclick="display('8')">8</button> </td>
+        <td><button type="button" id="so9" onclick="display('9')">9</button> </td>
+        <td><button type="button" id="div" onclick="display('/')">/</button> </td>
+    </tr>
+    <tr>
+        <td><button type="button" id="so4" onclick="display('4')">4</button> </td>
+        <td><button type="button" id="so5" onclick="display('5')">5</button> </td>
+        <td><button type="button" id="so6" onclick="display('6')">6</button> </td>
+        <td><button type="button" id="multi" onclick="display('*')">x</button> </td>
+    </tr>
+    <tr>
+        <td><button type="button" id="so1" onclick="display('1')">1</button> </td>
+        <td><button type="button" id="so2" onclick="display('2')">2</button> </td>
+        <td><button type="button" id="so3" onclick="display('3')">3</button> </td>
+        <td><button type="button" id="sub" onclick="display('-')">-</button> </td>
+    </tr>
+    <tr>
+        <td><button type="button" id="so0" onclick="display('0')">0</button> </td>
+        <td><button type="button" id="cham" onclick="display('.')">.</button> </td>
+        <td><button type="button" id="ketQua" onclick="ketQua()">=</button> </td>
+        <td><button type="button" id="add" onclick="display('+')">+</button> </td>
+    </tr>
+    <script>
+        
+        function reset() {
+            document.getElementById('screen').value=""; 
+        }
+        
+        function display(value) {
+            document.getElementById('screen').value +=value;
+        }
+        function ketQua() {
+            let a=document.getElementById('screen').value;
+            let b=eval(a);
+            document.getElementById('screen').value=b;
+        }
+    </script>
+</table>
 </body>
 </html>

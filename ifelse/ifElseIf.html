@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let answer=prompt('Mời bạn nhập tài khoản');
+        if (answer==="Admin") {
+            let pw=prompt('Mời bạn nhập mật khẩu');
+            if (pw==="TheMaster") {
+                document.write('Welcome');
+            } else if (pw===null){ document.write('Canceled');}
+                else{
+                document.write('Wrong pasword');
+             }
+        } else if (answer==null) { document.write('Canceled');
+                
+            } else { document.write("i don't know you");
+                
+            }
+    </script>
+</body>
+</html>

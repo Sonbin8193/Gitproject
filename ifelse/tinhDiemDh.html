@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2><b>TÍNH ĐIỂM ĐẠI HỌC KHỐI D</b></h2>
+    <form action=""></form>
+    <table style="background-color: bisque;height: max-content;width: max-content;">
+    <tr>
+        <td>Môn Toán</td>
+        <td><input type="number" name="math" id="toan"></td>
+    </tr>
+    <tr>
+        <td>Môn Văn</td>
+        <td><input type="number" name="liter" id="van"></td>
+    </tr>
+    <tr>
+        <td>Môn Anh</td>
+        <td><input type="number" name="èng" id="anh"></td>
+    </tr>
+    <tr>
+        <td>Khu vực</td>
+        <td><select name="khuVuc" id="khuVuc">
+            <option value="1">KV1</option>
+            <option value="2">KV2</option>
+            <option value="3">KV3</option>
+        </select></td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center"><button type="button" onclick="tinhDiem()">Tính điểm</button></td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center"><div id="ketqua"></div></td>
+    </tr>
+    </table>
+    </form>
+    <script>
+        function tinhDiem() {
+            let a=parseFloat(document.getElementById("toan").value);
+            let b=parseFloat(document.getElementById("van").value);
+            let c=parseFloat(document.getElementById("anh").value);
+            let place=document.getElementById('khuVuc').value;
+            let diemCong=0;
+            if (place==='1') { 
+                diemCong=0.75;
+            } else if (place==='2') { 
+                diemCong=0.5;
+            } else if (place ==="3"){
+                diemCong=0.25;
+            }  
+            let tongDiem=a+b+c+diemCong;
+            document.getElementById("ketqua").innerHTML=(` Tổng điểm ĐH của bạn là ${tongDiem}`);
+            }
+    </script>
+</body>
+</html>

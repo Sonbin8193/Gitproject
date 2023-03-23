@@ -7,8 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="number" name="number" id="check">
-    <button type="submit" onclick="checknumber()">Kiểm tra</button>
+    <form action="">
+        <input type="number" name="number" id="check">
+        <button type="submit" onclick="checknumber()">Kiểm tra</button>
+        <button type="reset">Xóa</button>
+    </form>
     <script>
         function checknumber() {
             let number=document.getElementById("check").value;
