@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <table id="ketQua" border="1" cellpadding="1" cellspacing="0">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <script>
+        //gọi API lấy data
+        fetch("https://dummyjson.com/products")
+            .then((response) => response.json())
+            .then((data) =>{
+                console.log(data.products);
+                // xử lý in sp ra màn hình
+                let products=data.products;
+                let chuoi="";
+                for (let i = 0; i < products.length; i++) {
+                   //(Xuất log thô) document.write(products[i].title + "|" + products[i].price +"<br>");
+                    chuoi += '<tr>';
+                    chuoi += `<td>${i+1}</td>`;
+                    chuoi += `<td>${products[i].title}</td>`;
+                    chuoi += `<td>${products[i].price}</td>`;
+                    chuoi += '</tr>';
+                }
+                document.getElementById('ketQua').innerHTML=chuoi;
+            });
+    </script>
+</body>
+</html>

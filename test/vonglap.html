@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    in ra các số tự nhiên chia hết cho 3 và cho 7. khi số tự nhiên chia hết cho 21 lần thứ 2 thì dừng
+    <script>
+        let n=1;
+        let chia21=0;
+        while (true) {
+            if (n%3===0||n%7===0) {
+                document.write(n+'<br>');
+            }
+            if (n%21===0) {
+                chia21++;
+            }
+            if (chia21===2) {
+                break;  
+            }
+            n++;
+        }
+    </script>
+
+</body>
+</html>

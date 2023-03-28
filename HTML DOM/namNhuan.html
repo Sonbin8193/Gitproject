@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra năm nhuận</title>
+</head>
+<body>
+    <input type="number" name="" id="soNam">
+    <button type="button" onclick="kiemTra()">Kiểm tra</button>
+    <div id="thongBao"></div>
+    <script>
+       function kiemTra() {
+            let nam=parseInt(document.getElementById('soNam').value);
+            if (nam%100===0&&nam%400!==0) {
+                document.getElementById('thongBao').innerHTML=nam + ' không phải là năm nhuận';
+                
+            } else if (nam%4===0||nam%400==0) {
+                document.getElementById('thongBao').innerHTML=nam + ' là năm nhuận';
+            } else {
+                document.getElementById('thongBao').innerHTML=nam + ' không phải là năm nhuận'; }
+            }
+    </script>
+</body>
+</html>
