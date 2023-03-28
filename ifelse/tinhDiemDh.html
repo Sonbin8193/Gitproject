@@ -45,13 +45,21 @@
             let c=parseFloat(document.getElementById("anh").value);
             let place=document.getElementById('khuVuc').value;
             let diemCong=0;
-            if (place==='1') { 
+            switch (place) {
+                case 1:  diemCong=0.75;
+                    break;
+                case 2:  diemCong=0.5;
+                    break;
+                case 3:  diemCong=0.25;
+                    break;
+            }
+            /* if (place==='1') { 
                 diemCong=0.75;
             } else if (place==='2') { 
                 diemCong=0.5;
             } else if (place ==="3"){
                 diemCong=0.25;
-            }  
+            }   */
             let tongDiem=a+b+c+diemCong;
             document.getElementById("ketqua").innerHTML=(` Tổng điểm ĐH của bạn là ${tongDiem}`);
             }
