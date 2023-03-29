@@ -8,17 +8,20 @@
 </head>
 <body>
     <script>
-        /* mai check
+        /* ham promt không cho phép parseInt
         let a = parseInt(prompt("a: ").value);
         let b = parseInt(prompt("b: ").value);
         let result = (a + b < 4) ? 'Below' : 'Over';
         alert(result);
+        
+        Bài 1:
         let a = prompt("a: ");
         let numa=parseInt(a);
         let b = prompt("b: ");
         let numb=parseInt(b);
         let result=(numa + numb < 4)?'Below':'Over';
         alert(result);  */
+        
         // Bài 2:
         debugger
         let login=prompt('Mời bạn nhập tin');
@@ -28,7 +31,7 @@
         } else if (login == 'Director') {
             message = 'Greetings';
         } else {
-            message = (login=='')?'No login':'';
+            message = (login==null)?'No login':'';
         }
         alert(message);
     </script>
