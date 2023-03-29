@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính BMI</title>
+</head>
+<body>
+    <script>
+        debugger
+        let chieuCao=+(prompt('Mời bạn nhập chiều cao(cm)'));
+        let canNang=+(prompt('Mời bạn nhập cân nặng(kg)'));
+        let bmi=10000*canNang/(Math.pow(chieuCao,2));
+        if (bmi>40) {
+            alert('béo phì cấp độ III');
+        } else if (bmi>34.99) {
+            alert('béo phì cấp độ II');
+        } else if (bmi>29.99) {
+            alert('béo phì cấp độ I');
+        } else if (bmi>24.99) {
+            alert('thừa cân');
+        } else if (bmi>18.49) {
+            alert('bình thường');
+        } else if (bmi>16.99) {
+            alert('gầy cấp độ I');
+        } else if (bmi>15.99) {
+            alert('gầy cấp độ II');
+        } else {
+            alert('gầy cấp độ III');
+        }
+    </script>
+</body>
+</html>
