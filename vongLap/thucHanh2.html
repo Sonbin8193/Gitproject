@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button type="button" onclick="guest()" >Chơi</button>
+    <script>
+        function guest() {
+            let doan=+(prompt('Nhập số muốn đoán lớn nhất'));
+            let randomNum=Math.random(doan).toFixed(0);
+            document.write("Kết quả đúng là : " + randomNum );
+            let dem=0;
+            let conLai;
+            do {
+                let guessNum=+(prompt('Nhập số muốn đoán'));
+                ++dem;
+                conLai=4-dem;
+                if(guessNum==randomNum) {
+                alert('Chúc mừng bạn đã đoán đúng');
+                break;
+            } else {
+                alert(`Sai rồi thử lại, bạn còn ${conLai} lần nữa`);
+            }
+            } while (dem<4);
+            
+        }
+    </script>
+</body>
+</html>

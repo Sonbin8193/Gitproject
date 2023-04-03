@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Giá Hoa Quả</h2>
+    <input type="text" name="" id="name">
+    <button type="button" onclick="check()">Tra cứu</button>
+    <div id="ketqua"></div>
+    <script>
+        function check() {
+            let hoaQua=document.getElementById('name').value;
+            let price=0;
+            switch (hoaQua) {
+                case 'Ổi':
+                case 'Dưa Hấu':
+                    price=20000;
+                    document.getElementById('ketqua').innerHTML=`Giá ${hoaQua} là ${price}/kg`;
+                    break;
+                case 'Táo':
+                case 'Xoài':
+                    price=30000;
+                    document.getElementById('ketqua').innerHTML=`Giá ${hoaQua} là ${price}/kg`;
+                    break;
+                case 'Cam':
+                case 'Chôm Chôm':
+                    price=40000;
+                    document.getElementById('ketqua').innerHTML=`Giá ${hoaQua} là ${price}/kg`;
+                    break;
+                case 'Măng Cụt':
+                    price=50000;
+                    document.getElementById('ketqua').innerHTML=`Giá ${hoaQua} là ${price}/kg`;
+                default:
+                    alert('Xin vui lòng nhập chính xác');
+                    break;
+                
+            }
+        }
+    </script>
+</body>
+</html>

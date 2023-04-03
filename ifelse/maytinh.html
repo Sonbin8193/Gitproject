@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta id="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            height: 30px;
+            width: 45px;
+        }
+    </style>
+</head>
+<body>
+    <h2><b>MÁY TÍNH NÂNG CAO</b></h2>
+<table style="background-color: bisque; height: max-content; width: max-content;">
+    <tr>
+        <th colspan="8"><input id="screen" style="width: 200px;height: 50px;" disabled></th>
+    </tr>
+    <tr>
+        <td><button type="button" onclick="display('1')">1</button> </td>
+        <td><button type="button" onclick="display('2')">2</button> </td>
+        <td><button type="button" onclick="display('3')">3</button> </td>
+        <td><button type="button" id="pheptinh" onclick="display('+')">+</button> </td>
+    </tr>
+    <tr>
+        <td><button type="button" onclick="display('4')">4</button> </td>
+        <td><button type="button" onclick="display('5')">5</button> </td>
+        <td><button type="button" onclick="display('6')">6</button> </td>
+        <td><button type="button" id="pheptinh" onclick="display('-')">-</button> </td>
+    </tr>
+    <tr>
+        <td><button type="button" onclick="display('7')">7</button> </td>
+        <td><button type="button" onclick="display('8')">8</button> </td>
+        <td><button type="button" onclick="display('9')">9</button> </td>
+        <td><button type="button" id="pheptinh" onclick="display('*')">*</button> </td>
+    </tr>
+    <tr>
+        <td><button type="button" onclick="reset()">C</button> </td>
+        <td><button type="button" onclick="display('0')">0</button> </td>
+        <td><button type="button" id="ketQua" onclick="ketQua()">=</button> </td>
+        <td><button type="button" id="pheptinh" onclick="display('/')">/</button> </td>
+    </tr>
+    <script>
+        function reset() {
+            document.getElementById('screen').value='';
+        }
+        function display(value) {
+            document.getElementById('screen').value=value;
+            let giaTriCu=document.getElementById('screen').value;
+
+        }        
+        // function ketQua() {
+        //   document.getElementById('ketQua').innerHTML=ketqua;
+        // }
+    </script>
+</body>
+</html>
