@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        debugger
+        let daySo =+(prompt('Nhập dãy số bất kỳ:'));
+        let N;
+        let mang=[];
+        do {
+            N = daySo%10;
+            mang.unshift(N);
+            daySo=(daySo-N)/10;
+        } while (daySo>0);
+        for (let index=0; index<mang.length;index++) {
+            if (mang[index]%2==0&&mang[index+1]%2==0) {
+                mang[index]+="-";
+            }
+        }
+        daySo2=mang.join('');
+        alert(daySo2);
+    </script>
+</body>
+</html>

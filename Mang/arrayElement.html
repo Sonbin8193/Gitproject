@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <input type="text" name="" id="nhap">
+        <button type="button" onclick="addItem()">Add</button>
+        <button type="button" onclick="displayItem()">Display</button>
+    </form>
+    <hr>
+    <div id="xuat"></div>
+    <script>
+        // let a= new Array(0); Mảng rỗng
+        let a= [];
+        function addItem() {
+            let newEle=document.getElementById('nhap').value;
+            if (newEle !== "") {
+                a.push(newEle);
+                alert("element: " + a[a.length-1] + " added at index "+ (a.length-1));
+                newEle="";
+                newEle.focus(); //đưa dấu nháy vào control
+            }
+        }
+        function displayItem() {
+            let kq='';
+            for (let index in a) {
+                kq +=` Element ${index} = ${a[index]} <br>`;
+            }
+            document.getElementById('xuat').innerHTML=kq;
+        }
+        
+    </script>
+</body>
+</html>
