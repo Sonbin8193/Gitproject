@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="ketQua"></div>
+    <script>
+        let vongLap=document.getElementById('ketQua');
+        let bang=document.createElement('table');
+        bang.border="2";
+        bang.cellPadding="1";
+        bang.cellSpacing="0";
+        bang.style.font="bold";
+        for (let i = 1; i < 12; i++) {
+            let dong=document.createElement('tr');
+            for (let j = 1; j < 12; j++) {
+                let cot=document.createElement('td');
+                dong.appendChild(cot);
+                cot.innerHTML=(j*i);
+            }
+            j=0;   
+            bang.appendChild(dong);
+        }
+        vongLap.appendChild(bang);
+    </script>
+</body>
+</html>

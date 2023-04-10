@@ -42,13 +42,12 @@
             <td><button type="button" id="pheptinh" onclick="caculator('chia')">/</button> </td>
         </tr>
     <script>
-        let phepCong;
             let phepToan;
             let giaTriMoi;
             let giaTriCu;
             let result;
-        function number(value) {
-            document.getElementById('screen').value+=value;
+        function number(so) {
+            document.getElementById('screen').value+=so;
             return;
         }
         function caculator(tinh) {

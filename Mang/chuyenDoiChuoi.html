@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h5>Chuyển đổi chuỗi từ chữ hoa sang chữ thường và ngược lại</h5>
+    <script>
+        let chuoi=prompt('Nhập chuỗi: ');
+
+        function isUpperCase(string) {
+            return string.toUpperCase()===string;
+        }
+        function isLowerCase(string) {
+            return string.toLowerCase()===string;
+        }
+        let ketQua=[];
+        for (let index = 0; index < chuoi.length; index++) {
+            if (isUpperCase(chuoi[index])) {
+                ketQua.push(chuoi[index]=chuoi[index].toLowerCase());
+            } else {
+                ketQua.push(chuoi[index]=chuoi[index].toUpperCase());
+            }
+        }
+        alert(ketQua.join(''));
+    </script>
+</body>
+</html>

@@ -7,18 +7,22 @@
     <title>Document</title>
 </head>
 <body>
-    Nhập số N:
-    <input type="number" name="" id="soN">
-    <button type="button" onclick="show()">Hiển thị</button>
-    <div id="display"></div>
     <script>
-        function show() {
-            let n=parseInt(document.getElementById('soN').value);
-            let mes='';
-            for (let i = 0; i < n; ++i) {
-                mes +=`This is number ${i}<br>`;
-            }
-            document.getElementById('display').innerHTML=mes;
+        //Tính tổng nhập vào
+        let n;
+        let tong=0;
+        while (n != -1) {  
+            n=+(prompt('Nhập số bất kỳ: '));
+            document.write(n +'<br>');
+            tong += n;
+        }
+        document.write(tong);
+        //Vẽ hình tam giác
+        document.write('<hr>')
+        let i=1;
+        while (i<100) {
+            document.write(`<hr width=${i}%>`);
+            i++;
         }
     </script>
 </body>
