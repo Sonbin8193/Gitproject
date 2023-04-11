@@ -13,17 +13,19 @@
         myTable.cellSpacing=0;
         myTable.cellPadding=5;
 
-        for (let i=1; i<11 ; i++) {
-            let row=document.createElement('tr');
-            for (let e = 2; e < 10; e++) {
-                let col=document.createElement('td');
-                col.innerHTML=`${e}x${i}=${e*i}`;
-                row.appendChild(col);
-                
+        for (let i = 1; i < 10; i++){
+            dong=document.createElement('tr')
+            for (let j = 2; j < 10; j++) {
+                cot=document.createElement('td');
+                cot.innerHTML=`${j} x ${i}= ${j*i}`;
+                dong.appendChild(cot);
             }
-            myTable.appendChild(row);
+            myTable.appendChild(dong);
+            j=2;
         }
         document.getElementById('main').appendChild(myTable);
     </script>
+</body>
+</html>
 </body>
 </html>

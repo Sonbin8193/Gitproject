@@ -9,27 +9,43 @@
 <body>
     <div id="tamgiac"></div>
     <script>
+        //Hình 1:
         let chuoi='';
         for (let i = 0; i < 5; i++) {
             chuoi +='*';
             document.write(chuoi+'<br>');
         }
         document.write('<hr>');
-        // //hinh 2
-        // for (let a = 6; a > 0; a--) {
-        //     for (let b = 1; b <a; b++) {
-        //         document.write("*");
-        //     }
-        //     document.write('<br>');
-        // }
-        // document.write('<hr>');
-        // //hinh 1
-        // for (let a = 0; a < 6; a++) {
-        //     for (let b = 0; b <a; b++) {
-        //         document.write('*');
-        //     }
-        //     document.write('<br>');
-        // }
+        //Hình 2:
+        for (let i = 5; i > 0; i--) {
+            for (let j = 0; j < i; j++) {
+                document.write('*');
+            }  
+            document.write('<br>');
+        }
+        document.write('<hr>');
+        //Hình 3:
+        let chuoi2='';
+        for (let i = 5; i > 0; i--) {
+            for (let j = 1; j < i; j++) {
+                document.write('&nbsp&nbsp'); 
+            } 
+            chuoi2 +='*';
+            document.write(chuoi2);
+            document.write('<br>');
+        }
+        document.write('<hr>');
+        //Hình 4:
+        let khoangTrang ='';
+        for (let i = 5; i > 0; i--) {
+            document.write(khoangTrang);
+            khoangTrang+='&nbsp&nbsp';
+            for (let j = 0; j < i; j++) {
+                document.write('*');
+            }  
+            document.write('<br>');
+        }
+        document.write('<hr>');
     </script>
 </body>
 </html>

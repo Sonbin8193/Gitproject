@@ -9,25 +9,19 @@
 <body>
     <script>
         debugger
-        let number=+(prompt('Mời nhập số nguyên tố cần in'));
-        function laSoNguyen(soNguyen) {
-            if(soNguyen<2)
-            return false;
-        }
-        for (let i = 2; i < soNguyen; i++) {
-            if (soNguyen%i==0) {
-                return false;
-            }
-            return true;
-        }
+        let number=+(prompt('Số lượng số nguyên tố cần:'));
         let count=0;
-        let N=2;
-        while (count<number) {
-            if (laSoNguyen(N)) {
-                document.write(N+ " ");
-                count++;   
-            }         
-        }
+        let N=3;
+        do {
+            for (let i = 2; i < N; i++) {
+                if (N%i==0) {
+                    N++;
+                }
+                document.write(N);
+            }
+          count++; 
+        } while (count<number);
+        
     </script>
 </body>
 </html>
