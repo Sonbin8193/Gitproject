@@ -7,29 +7,26 @@
     <title>Document</title>
         </head>
         <body>
-       <h1 id="1">Chào mừng <b>BẠN</b> nhỏ</h1>
-       <table style="width:100%" border="1">  
-        <tr>  
-          <th>Name</th>  
-          <th>Mobile No.</th>  
-        </tr>  
-        <tr>  
-            <td rowspan="2">Mobile No.</td>  
-            <td>No.</td>  
-          </tr>  
-        <tr>  
-          <td>7503520801</td>  
-        </tr>  
-      </table> 
-       <script>
-        let theH1=document.getElementById("1");
-
-        theH1.style.color="red";
-        theH1.style.background="black";
-
-        let noiDung=prompt(" Nhập lời chào ");
-        theH1.innerHTML=noiDung;
-       </script>
-        </body>
+      <script>
+        debugger
+        let nhietDo;
+        let ketQua=true;
+        while (ketQua=true) {
+          nhietDo = +(prompt('Nhập nhiệt độ hiện tại: '));
+          if(20<nhietDo&&nhietDo<100) {
+            //ketQua=false;
+            alert('Ổn rồi');
+            break;
+          }
+          if (nhietDo>100) {
+              alert('Vui lòng giảm nhiệt độ');
+              ketQua=true;
+          }
+          if (nhietDo<20) {
+            alert('Vui lòng tăng nhiệt độ');
+            ketQua=true;
+          }
+        }
+      </script>
 </body>
 </html>

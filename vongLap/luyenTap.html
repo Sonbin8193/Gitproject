@@ -17,12 +17,22 @@
             document.write(`Số ${i},`);
         }
         //Bài 2: Cảnh báo nhiệt độ
-        let nhietDo = +(prompt('Nhập nhiệt độ hiện tại: '));
-        if (nhietDo>100) {
-            alert('Vui lòng giảm nhiệt độ');
-        }
-        if (nhietDo<20) {
+        let nhietDo;
+        let ketQua=true;
+        while (ketQua=true) {
+          nhietDo = +(prompt('Nhập nhiệt độ hiện tại: '));
+          if(20<nhietDo&&nhietDo<100) {
+            alert('Ổn rồi');
+            break;
+          }
+          if (nhietDo>100) {
+              alert('Vui lòng giảm nhiệt độ');
+              ketQua=true;
+          }
+          if (nhietDo<20) {
             alert('Vui lòng tăng nhiệt độ');
+            ketQua=true;
+          }
         }
         document.write('<hr>');
         //Bài 3: 20 số Fibo đầu tiên
