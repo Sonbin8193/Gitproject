@@ -8,20 +8,24 @@
 </head>
 <body>
     <script>
-        debugger
         let number=+(prompt('Số lượng số nguyên tố cần:'));
         let count=0;
-        let N=3;
-        do {
+        let N=2;
+       
+        while (count<number) {
+            let soNguyenTo=true;
             for (let i = 2; i < N; i++) {
                 if (N%i==0) {
-                    N++;
+                    soNguyenTo=false;
+                    break;
                 }
-                document.write(N);
             }
-          count++; 
-        } while (count<number);
-        
+            if (soNguyenTo==true) {
+                document.write(`${N} `);
+                count++;
+            }
+            N++;
+        }
     </script>
 </body>
 </html>
