@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Sample Screen</h2>
+        <input type="text" name="" id="add">
+        <button type="button" onclick="add()">Add</button>
+        <button type="button" onclick="display()">Display</button>
+        <div id="hienThi"></div>
+    <script>
+        let arrays=[];
+        function add() {
+            let element=document.getElementById('add').value;
+            arrays.push(element);
+            document.getElementById('add').value='';
+        }
+        function display() {
+            document.getElementById('hienThi').innerHTML='';
+            for (let i = 0; i < arrays.length; i++) {
+                document.getElementById('hienThi').innerHTML+='Element ' + i + ' = ' + arrays[i]+ '<br>';
+            }
+        }
+
+    </script>
+</body>
+</html>
