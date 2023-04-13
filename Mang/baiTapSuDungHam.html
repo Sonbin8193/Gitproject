@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Bài 1: 
+        let myColor = ['Red', 'Green', 'White', 'Black'];
+        let chuoi = myColor.join(',');
+        console.log(chuoi);
+        //Bài 2:
+        let daySo =+(prompt('Nhập dãy số bất kỳ:'));
+        let N;
+        let mang=[];
+        do {
+            N = daySo%10;
+            mang.unshift(N);
+            daySo=(daySo-N)/10;
+        } while (daySo>0);
+        for (let index=0; index<mang.length;index++) {
+            if (mang[index]%2==0&&mang[index+1]%2==0) {
+                mang[index]+="-";
+            }
+        }
+        daySo2=mang.join('');
+        alert(daySo2);
+        // Bài 3:
+        let chuoi=prompt('Nhập chuỗi: ');
+
+        function isUpperCase(string) {
+            return string.toUpperCase()===string;
+        }
+        function isLowerCase(string) {
+            return string.toLowerCase()===string;
+        }
+        let ketQua=[];
+        for (let index = 0; index < chuoi.length; index++) {
+            if (isUpperCase(chuoi[index])) {
+                ketQua.push(chuoi[index]=chuoi[index].toLowerCase());
+            } else {
+                ketQua.push(chuoi[index]=chuoi[index].toUpperCase());
+            }
+        }
+        alert(ketQua.join(''));
+    </script>
+</body>
+</html>

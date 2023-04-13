@@ -1,32 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        </head>
-        <body>
-      <script>
-        debugger
-        let nhietDo;
-        let ketQua=true;
-        while (ketQua=true) {
-          nhietDo = +(prompt('Nhập nhiệt độ hiện tại: '));
-          if(20<nhietDo&&nhietDo<100) {
-            //ketQua=false;
-            alert('Ổn rồi');
-            break;
-          }
-          if (nhietDo>100) {
-              alert('Vui lòng giảm nhiệt độ');
-              ketQua=true;
-          }
-          if (nhietDo<20) {
-            alert('Vui lòng tăng nhiệt độ');
-            ketQua=true;
-          }
-        }
-      </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button type="button" onclick="hello()">Xin chào</button>
+  <script>
+    function hello() {
+      alert('xin chào');
+    }
+  </script>
 </body>
 </html>
