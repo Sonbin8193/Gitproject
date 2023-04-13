@@ -8,29 +8,31 @@
 </head>
 <body>
     <script>
-        let N=+(prompt('Mẳng có bao nhiêu phần tử '));
+        let N=+(prompt('Mảng có bao nhiêu phần tử '));
         let mang=[];
         let giaTriTim=+(prompt('Nhập giá trị cần tìm'));
-        function getRandomArbitrary(min,max) {
-            return Math.floor(Math.random()* (max-min) + min)
+        function getRandom(min,max) {
+            return Math.floor(Math.random()*(max-min)) + min;
         }
         // khởi tạo ngẫu nhiên N phần tử
-        for (let i = 0; i < N.length; i++) {
+        for (let i = 0; i < N; i++) {
             // mang.push(Math.random());
-            mang.push(getRandomArbitrary(5.55));
+            mang.push(getRandom(5,55));
         }
         alert('Mảng: ' + mang.join(','));
         let viTris=[];
         for (const idx in mang) {
-            if (mang, idx=== giaTriTim) {
+            if (mang[idx]=== giaTriTim) {
                 viTris.push(idx);
-                
             }
+        }
             if(viTris.length>0) {
-                alert(`Tìm thấy ${giaTriTim} tại vị trí ${viTris}`);
+                    alert(`Tìm thấy ${giaTriTim} tại vị trí ${viTris}`);
             } else {
                 alert(`Không tìm thấy ${giaTriTim} trong mảng.`);
             }
+        
+        // Tìm giá trị lớn nhất & nhỏ nhất
         let min=mang[0];
         let max=mang[0];
         for (let idx = 0; idx < mang.length; idx++) {
@@ -40,9 +42,9 @@
             if (mang[idx]>max) {
                 max=mang[idx];
             }
-            alert(`Giá trị nhỏ nhất là ${min}, Giá trị lớn nhất là ${max}`);
         }
-        }
+        alert(`Giá trị nhỏ nhất là ${min}, Giá trị lớn nhất là ${max}`);
+        
     </script>
 </body>
 </html>
