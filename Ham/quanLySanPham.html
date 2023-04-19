@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{ width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" name="" id="sanPham" placeholder="Nhập tên sản phẩm"><br><br>
+    <button type="button" onclick="themSanPham() ">Thêm</button><br><br>
+    <div id="hienThi">
+    </div>
+    <script>
+        let danhSachSanPham = [];
+        
+        function hienThiSanPham() {
+            let luuTruTenSanPham=[];
+            let bangHienThi = document.getElementById('hienThi');
+            let danhSach = document.createElement('table');
+
+            for (let i = 0; i < luuTruTenSanPham.length; i++) {
+                let thuTuSanPham = document.createElement('tr');
+                for (let j = 0; j < 3; j++) {
+                    let cotSanPham= document.createElement('td');
+                    cotSanPham.innerHTML='Cờ đỏ';
+                    thuTuSanPham.appendChild(cotSanPham);
+                }
+                // let chuoi = '';
+                // chuoi +='<td>' + i+1 + '</td>';
+                // chuoi +='<td>' + luuTruTenSanPham[i+1] + '</td>';
+                // chuoi += '<td>' + '<button type="button" onclick="">Xóa</button>' + '</td>';
+                danhSach.appendChild(thuTuSanPham);
+            }
+            bangHienThi.appendChild(danhSach);
+        }
+
+        function themSanPham() {
+            let sanPhamMoi = document.getElementById('sanPham').value;
+            danhSachSanPham.push(sanPhamMoi);
+            alert(`Đã thêm sản phẩm ${sanPhamMoi} thành công `);
+            hienThiSanPham();
+        }
+
+        function suaSanPham() {
+
+        }
+
+        function xoaItem() {
+            
+        }
+    </script>
+</body>
+</html>

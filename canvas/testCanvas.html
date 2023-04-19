@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="hinhChuNhat" width="800" height="800" style="border: 3px solid salmon; background-color: rgb(255, 0, 0);">
+
+    </canvas>
+    <script>
+        let canvas=document.getElementById('hinhChuNhat');
+        // Vẽ trên mặt phẳng 2D
+        let ctx = canvas.getContext("2d");
+        //Vẽ hình tròn
+            ctx.beginPath();
+            ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+            ctx.stroke();
+        // Vẽ đường thẳng
+            ctx.moveTo(400,110);
+            ctx.lineTo(560,600);
+
+            //ctx.moveTo(600,600);
+            ctx.lineTo(150,300);
+
+            //ctx.moveTo(150,300);
+            ctx.lineTo(660,300);
+
+            //ctx.moveTo(650,300);
+            ctx.lineTo(240,600);
+            
+            //ctx.moveTo(200,600);
+            ctx.lineTo(400,110);
+            ctx.lineWidth=4;
+            ctx.strokeStyle="yellow";
+            ctx.stroke(); // => kết thúc đường vẽ
+            ctx.beginPath(); // -> bắt đầu đường vẽ mới ( cần moveto mới)
+    </script>
+</body>
+</html>

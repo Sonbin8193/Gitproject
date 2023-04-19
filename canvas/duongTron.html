@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="hinhChuNhat" width="800" height="800" style="border: 3px solid rgb(62, 255, 255); background-color: rgb(195, 247, 76);">
+
+    </canvas>
+    <script>
+        let canvas=document.getElementById('hinhChuNhat');
+        // Vẽ trên mặt phẳng 2D
+        let ctx = canvas.getContext("2d");
+        //Vẽ hình tròn
+            ctx.beginPath();
+            ctx.arc(200, 200, 150, 0, Math.PI,false);
+            ctx.stroke();
+            //Vẽ hình chữ nhật có màu
+            ctx.fillStyle = "blue";
+            ctx.fillRect(0, 0, 150, 75);
+            // Vễ hình chữ nhật chỉ có nét
+            ctx.beginPath();
+            ctx.strokeStyle="green";
+            ctx.lineWidth=8;
+            ctx.strokeRect(400,400,200,200);
+
+    </script>
+</body>
+</html>
