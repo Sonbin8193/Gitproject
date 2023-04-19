@@ -13,46 +13,73 @@
 </head>
 <body>
     <input type="text" name="" id="sanPham" placeholder="Nhập tên sản phẩm"><br><br>
-    <button type="button" onclick="themSanPham() ">Thêm</button><br><br>
+    <button type="button" onclick="themSanPham()">Thêm</button>
+    <button type="button" onclick="suaSanPham()">Sửa</button>
+    <h4>Display Product</h4>
+    <div id="displayProduct">
+    </div>
     <div id="hienThi">
     </div>
     <script>
+        debugger
         let danhSachSanPham = [];
+        soLuongSanPham();
         
+        function soLuongSanPham() {
+            document.getElementById('displayProduct').innerHTML=`Tổng cộng có ${danhSachSanPham.length} sản phẩm`;
+        }
         function hienThiSanPham() {
-            let luuTruTenSanPham=[];
             let bangHienThi = document.getElementById('hienThi');
             let danhSach = document.createElement('table');
+            danhSach.border='1px';
+            danhSach.cellPadding='5px';
+            danhSach.cellSpacing='0px';
 
-            for (let i = 0; i < luuTruTenSanPham.length; i++) {
+            for (let i = 0; i < danhSachSanPham.length; i++) {
                 let thuTuSanPham = document.createElement('tr');
-                for (let j = 0; j < 3; j++) {
-                    let cotSanPham= document.createElement('td');
-                    cotSanPham.innerHTML='Cờ đỏ';
+                for (let j = 0; j <1; j++) {
+                    let cotThuTu= document.createElement('td');
+                    let cotSanPham=document.createElement('td');
+                    let cotXoa=document.createElement('td');
+                    cotThuTu.innerHTML=i+1;
+                    cotSanPham.innerHTML=`<div onclick='chonSanPham(${i})'>${danhSachSanPham[i]}</div>`;
+                    cotXoa.innerHTML=`<button type="button" onclick="xoaItem(${i})">Xóa</button>`;
+                    thuTuSanPham.appendChild(cotThuTu);
                     thuTuSanPham.appendChild(cotSanPham);
+                    thuTuSanPham.appendChild(cotXoa);
                 }
-                // let chuoi = '';
-                // chuoi +='<td>' + i+1 + '</td>';
-                // chuoi +='<td>' + luuTruTenSanPham[i+1] + '</td>';
-                // chuoi += '<td>' + '<button type="button" onclick="">Xóa</button>' + '</td>';
                 danhSach.appendChild(thuTuSanPham);
             }
             bangHienThi.appendChild(danhSach);
+            soLuongSanPham();
         }
 
         function themSanPham() {
             let sanPhamMoi = document.getElementById('sanPham').value;
             danhSachSanPham.push(sanPhamMoi);
             alert(`Đã thêm sản phẩm ${sanPhamMoi} thành công `);
+            document.getElementById('hienThi').innerHTML='';
+            document.getElementById('sanPham').value='';
             hienThiSanPham();
         }
-
-        function suaSanPham() {
-
+        function chonSanPham(i) {
+            sanPhamMoi=document.getElementById('sanPham').value=danhSachSanPham[i];
         }
-
-        function xoaItem() {
-            
+        function suaSanPham() {
+            let sanPhamDaSua = document.getElementById('sanPham').value;
+            for (const index in danhSachSanPham) {
+                if (danhSachSanPham[index]==sanPhamMoi) {
+                danhSachSanPham[index]=sanPhamDaSua;
+                }   
+            }
+                document.getElementById('hienThi').innerHTML='';
+                hienThiSanPham();
+            }
+        function xoaItem(i) {
+            console.log(danhSachSanPham[i]);
+            danhSachSanPham.splice(danhSachSanPham[i],1);
+            document.getElementById('hienThi').innerHTML='';
+            hienThiSanPham();
         }
     </script>
 </body>

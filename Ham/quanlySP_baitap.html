@@ -15,26 +15,20 @@
         let danhSachItem = [];
         let danhSachSua = [];
         let danhSachXoa = [];
-        function themSanPham() {
-            let item=document.getElementById('sanPham').value;
-            if( item !=='') {
-                danhSachItem.push(item);
-            }
-            document.getElementById('sanPham').value='';
-        }
-        // for (let i = 0; i < danhSachItem.length; i++) {
-        //    let chuoi = '';
-        //     chuoi += '<tr>';
-        //     for (let j = 0; j < 3; j++) {
-        //         chuoi += '<td>' + danhSachItem[i] + '</td>';
-        //         chuoi += '<td> <button type="button" onclick="">Sửa</button> </td>';
-        //         chuoi += '<td> <button type="button" onclick="">Xóa</button> </td>';
+        
+        for (let i = 0; i < danhSachItem.length; i++) {
+           let chuoi = '';
+            chuoi += '<tr>';
+            for (let j = 0; j < 3; j++) {
+                chuoi += '<td>' + danhSachItem[i] + '</td>';
+                chuoi += `<td> <button type="button" onclick="suaSanPham(${i})">Sửa</button> </td>`;
+                chuoi += `<td> <button type="button" onclick=""xoaSanPham(${i})"">Xóa</button> </td>`;
  
-        //     }
-        //     chuoi += '</tr>';
-        //     bangSanPham.appendChild(chuoi);
-        //     document.getElementById('danhsachSanPham').innerHTML=bangSanPham;
-        // }
+            }
+            chuoi += '</tr>';
+            bangSanPham.appendChild(chuoi);
+            document.getElementById('danhsachSanPham').innerHTML=bangSanPham;
+        }
     </script>   
 </body>
 </html>
