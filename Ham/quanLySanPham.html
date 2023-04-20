@@ -77,7 +77,7 @@
             }
         function xoaItem(i) {
             console.log(danhSachSanPham[i]);
-            danhSachSanPham.splice(danhSachSanPham[i],1);
+            danhSachSanPham.splice(i,1);
             document.getElementById('hienThi').innerHTML='';
             hienThiSanPham();
         }
