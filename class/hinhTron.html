@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="number" id="banKinh"><input type="color" id="mau">
+        <button type="button" onclick="themHinhMoi()">Thêm</button> 
+    </div>
+    <canvas id="hinhTron" width="800" height="800" style="border: 3px solid rgb(62, 255, 255); background-color: rgb(195, 247, 76);">
+    </canvas>
+    <script>
+
+        let canvas=document.getElementById('hinhTron');
+        let ctx = canvas.getContext("2d");
+        class Circle {
+            constructor(radius, color) {
+                this.radius = radius;
+                this.color = color;
+            }
+
+            getRadius () {
+                return this.radius;
+            }
+
+            getArea() {
+                return Math.pow(this.radius, 2)* Math.PI;
+            }
+
+            toString() {
+                return `Tròn có R=${this.getRadius()}, S=${this.getArea()}`
+            }
+            
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.strokeStyle = this.color;
+                ctx.arc(this.radius+55,this.radius*3,this.radius, 0, 2*Math.PI,false);
+                ctx.stroke();
+            }
+        }
+
+        // => Thêm mảng vẽ hình
+        let mangHinh = [];
+        // mangHinh.push(new Circle(50,'red'));
+        // mangHinh.push(new Circle(180,'blue'));
+
+        // for (const index in mangHinh) {
+        //     console.log(mangHinh[index]);
+        //     mangHinh[index].draw(ctx);
+        // }
+
+        function veHinh() {
+            ctx.clearRect(0,0, canvas.witdh, canvas.height);
+            for (const index in mangHinh) {
+                mangHinh[index].draw(ctx);
+            }
+        }
+        
+        veHinh();
+
+        function themHinhMoi() {
+            let bk = +(document.getElementById('banKinh').value);
+            let mauSac = document.getElementById('mau').value;
+            mangHinh.push(new Circle(bk, mauSac));
+            veHinh();
+        }
+            
+    </script>
+</body>
+</html>

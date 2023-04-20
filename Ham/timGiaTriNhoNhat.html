@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr1 = [3, 5, 1, 8, -3, 7, 8];
+        let arr2 = [7, 12, 6, 9, 20, 56, 89];
+        let arr3 = [];
+        let arr4 = [0, 0, 0, 0, 0, 0];
+
+        function findMin(arr) {
+            let min = arr[0];
+            if (arr.length>0) {
+                for (const idx in arr) {
+                    if (min>arr[idx]) {
+                        min=arr[idx];
+                    }
+                }
+                alert(`Giá trị nhỏ nhất của mảng [${arr}] là ${min}`);
+            } else {
+                alert(`Mảng ${arr} không có dữ liệu`);
+            }
+        }
+        findMin(arr1);
+        findMin(arr2);
+        findMin(arr3);
+        findMin(arr4);
+    </script>
+</body>
+</html>

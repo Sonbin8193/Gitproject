@@ -7,13 +7,38 @@
     <title>Document</title>
 </head>
 <body>
+    <input type="number" onchange="isPrime(this.value)">
+    <p id="ketQua"></p>
     <script>
+        let laSoNguyenTo=true;
         function isPrime(number) {
-        if (number%2===0) {
-            return true;
+            if (number<2) {
+                alert('Số không xác định');
+            } else {
+                for (let i = 2; i < number; i++) {
+                    if (number%i==0) {
+                        laSoNguyenTo=false;
+                        break;
+                    }
+                }
+            }
+            // => Báo là số nguyên tố hay không
+            // if (laSoNguyenTo==true) {
+            //     document.getElementById('ketQua').innerHTML=` ${number} là số nguyên tố`;
+            // } else {
+            //     document.getElementById('ketQua').innerHTML=` ${number} không phải là số nguyên tố`;
+            // }
+            // }
+            // return laSoNguyenTo=true;
         }
-        return false;
-        }   
+        // Tìm 10000 số nguyên tố đầu tiên
+        for (let j = 2; j < 10000; j++) {
+            laSoNguyenTo=true;
+            isPrime(j);
+           if (laSoNguyenTo==true) {
+            document.write(`${j}, `);
+           }
+        }
     </script>
 </body>
 </html>
