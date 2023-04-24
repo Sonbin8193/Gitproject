@@ -16,9 +16,56 @@
             return isNaN(a);
         }
 
-        alert(kiemTraSo(a));
+        console.log(kiemTraSo(a));
 
-        //Bài 7
+        //Bài 7:
+        function timSoNguyenNhoNhat(a,b,c) {
+            let min = a;
+            if (a > b) {
+                min = b;
+                if (b>c) {
+                    min = c;
+                }
+            } else if (a > c) {
+                min=c;
+            }
+            return min;
+        }
+        console.log(timSoNguyenNhoNhat(7,8,9));
+        // Bài 8:
+        function kiemTraSoNguyenDuong(number) {
+            let soNguyen = false;
+            if (number>0) {
+                 soNguyen = true;
+            }
+            return soNguyen;
+        }
+        console.log(kiemTraSoNguyenDuong(10));
+        //Bài 9:
+        let soMoi = 0;
+        function daoNguocSoNguyen(number) {
+            do {
+                a = number%10;
+                number = (number - a)/10;
+                soMoi = soMoi*10 + a;
+            } while (number>0);
+            return soMoi;
+        }
+        console.log(daoNguocSoNguyen(1234789));
+
+        // Bài 10:
+        let count = 0;
+        function timGiaTri(mang, chuoi) {
+            for (const index in mang) {
+                if (mang[index]==chuoi) {
+                    count++;
+                }
+            }
+            return count;
+        }
+        let mang = [1,2,3,5,76,87,89,6,5,1,2,1];
+        let chuoi = 2;
+        console.log(timGiaTri(mang, chuoi));
     </script>
 </body>
 </html>

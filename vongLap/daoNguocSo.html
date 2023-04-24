@@ -8,6 +8,7 @@
 </head>
 <body>
     <script>
+        debugger
     //         let chuoi=prompt('Nhập chuỗi');
     //         ketqua='';
     //         let idx=0;
@@ -22,7 +23,7 @@
     while (n>0) {
         sodu=n%10;
         sokq=sokq*10+sodu;
-        n=(n/10).toFixed(0);
+        n=(n-sodu)/10;
     }
     alert(sokq);
     </script>

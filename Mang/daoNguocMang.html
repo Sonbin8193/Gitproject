@@ -9,28 +9,18 @@
 <body>
     <script>
         let mang=[1,-2,5,7,2,43,12];
-        // let mangNguoc=[];
-        // function daoNguoc(mang) {
-        //     for (const index in mang) {
-        //         let mangNho=mang[index];
-        //         mangNguoc.unshift(mangNho);
-        //     }
-            
-        // }
-        // daoNguoc(mang);
-        // alert(mangNguoc);
             for (let i = 0; i < mang.length/2; i++) {
                 let tmp=mang[i];
                 mang[i]=mang[mang.length-1-i];
                 mang[mang.length-1-i]=tmp;
                 
             }
-            for (const key in object) {
-                if (Object.hasOwnProperty.call(object, key)) {
-                    const element = object[key];
+            // for (const key in object) {
+            //     if (Object.hasOwnProperty.call(object, key)) {
+            //         const element = object[key];
                     
-                }
-            }
+            //     }
+            // }
             alert(mang);
     </script>
 </body>
