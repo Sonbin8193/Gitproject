@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function kiemTraChuoiDoiXung(chuoi) {
+            let kyTuDau=0;
+            let kyTuCuoi=chuoi.length-1;
+            chuoiDoiXung = true;
+            while (kyTuDau<kyTuCuoi) {
+                if (chuoi[kyTuDau]==chuoi[kyTuCuoi]) {
+                    kyTuDau++;
+                    kyTuCuoi--;
+                } else {
+                    return chuoiDoiXung = false;
+                }
+            }
+        }
+        let string = 'mottom';
+        kiemTraChuoiDoiXung(string);
+        if (chuoiDoiXung==true) {
+            console.log(`Chuối đối xứng`);
+        } else {
+            console.log(`Chuối không đối xứng`);
+        }
+
+    </script>
+</body>
+</html>
