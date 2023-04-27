@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="800" height="800" style="border: 3px solid salmon;">
+
+    </canvas>
+    <script>
+        let canvas = document.getElementById('myCanvas');
+        let context = canvas.getContext('2d');
+        let gradient = context.createRadialGradient(200,200,5,100,100,200);
+        gradient.addColorStop(0,"white");
+        gradient.addColorStop(1,"blue");
+        context.arc(250,250,100,0,2*Math.PI);
+        context.fillStyle = gradient;
+        context.fill();
+        context.lineWidth = "1";
+        context.strokeStyle = "white";
+        context.stroke();
+    </script>
+</body>
+</html>

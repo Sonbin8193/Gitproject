@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" height="500" width="500" style="border: 1px solid black;"></canvas>
+    <script>
+        let ctx = document.getElementById('myCanvas').getContext('2d');
+        class Rect{
+            constructor(x,y,dai,rong){
+                this.x = x;
+                this.y = y;
+                this.dai = dai;
+                this.rong = rong;
+            }
+            
+            drawRect(){
+                ctx.beginPath();
+                ctx.fillStyle = 'red';
+                ctx.fillRect(this.x, this.y, this.dai, this.rong);
+            }
+
+            moveDownRect() {
+                ctx.clearRect(this.x, this.y, this.dai, this.rong);
+                this.y +=20;
+                ctx.beginPath();
+                ctx.fillStyle='#fa4b2a';
+                ctx.fillRect(this.x, this.y, this.dai, this.rong);
+            }
+            moveUpRect(){
+                ctx.clearRect(this.x, this.y, this.dai, this.rong);
+                this.y -=20;
+                ctx.beginPath();
+                ctx.fillStyle='#fa4b2a';
+                ctx.fillRect(this.x, this.y, this.dai, this.rong);
+            }
+        }
+
+        let rect1 = new Rect(0,0,200,90);
+
+        rect1.drawRect();
+        function start() {
+            if (rect1.x<200) {
+                rect1.moveDownRect();
+            }
+        }
+        setInterval(start,50);
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" height="500" width="500" style="border: 1px solid black;"></canvas>
+    <script>
+        class Circle{
+            constructor(x,y,r) {
+                this.x = x;
+                this.y = y;
+                this.radius = r;
+                // this.color = color;
+            }
+
+            getRandomHex(){
+                return Math.floor(Math.random()*255);
+            }
+
+            getRandomColor(){
+                let red = this.getRandomHex();
+                let green = this.getRandomHex();
+                let blue = this.getRandomHex();
+                return "rgb(" + red + "," + blue + "," + green +")";
+            }
+
+            drawCirle(){
+                ctx.beginPath();
+                let color = this.getRandomColor();
+                ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.stroke();
+            }
+    
+        }
+        let ctx = document.getElementById('myCanvas').getContext('2d');
+        let radius = Math.floor(Math.random()*100);
+        let toaDoX = Math.floor(Math.random()*500);
+        let toaDoY = Math.floor(Math.random()*500);
+        let circle1 = new Circle(toaDoX, toaDoY, radius);
+        circle1.drawCirle();
+        for (let i = 0; i < 30; i++) {
+            if (toaDoX>0) {
+                radius = Math.floor(Math.random()*100);
+                toaDoX = Math.floor(Math.random()*400);
+                toaDoY = Math.floor(Math.random()*400);
+                let circle2 = new Circle(toaDoX, toaDoY, radius);
+                circle2.drawCirle();
+            }
+        }
+        
+    </script>
+</body>
+</html>

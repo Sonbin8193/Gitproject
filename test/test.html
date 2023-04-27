@@ -9,9 +9,16 @@
 <body>
   <button type="button" onclick="hello()">Xin chào</button>
   <script>
-    function hello() {
-      alert('xin chào');
-    }
+    debugger
+    function func1(a){
+      if(a == 2) {
+        return 2;
+      }
+        return a * func1(a - 1);
+      }
+
+      console.log(func1(5));
+
   </script>
 </body>
 </html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="hinhTron" height="1000px" width="1000px"  style="border: 1px solid salmon;"></canvas>
+    <script>
+        let canVas = document.getElementById('hinhTron');
+        let ctx = canVas.getContext('2d');
+        let gradient = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        let color = ['red', 'blue', 'green','yellow','violet','pink', 'orange'];
+        let randomColor2 = color[Math.floor(Math.random()*color.length)];
+        
+        class Circle{
+            constructor(x,y,r,color2) {
+                this.x = x;
+                this.y = y;
+                this.r = r;
+                this.color2 = color2;
+            }
+            DrawCircle() { 
+                gradient.addColorStop(0,'white');
+                gradient.addColorStop(1,this.color2);
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0,2*Math.PI);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                ctx.strokeStyle = "white";
+                ctx.stroke();
+            } 
+        }
+        let circle1 = new Circle(120,120,100,randomColor2);
+        circle1.DrawCircle();
+        
+    </script>
+</body>
+</html>
