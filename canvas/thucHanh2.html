@@ -26,14 +26,14 @@
 
             moveDownRect() {
                 ctx.clearRect(this.x, this.y, this.dai, this.rong);
-                this.y +=20;
+                this.y +=1;
                 ctx.beginPath();
                 ctx.fillStyle='#fa4b2a';
                 ctx.fillRect(this.x, this.y, this.dai, this.rong);
             }
             moveUpRect(){
                 ctx.clearRect(this.x, this.y, this.dai, this.rong);
-                this.y -=20;
+                this.y -=1;
                 ctx.beginPath();
                 ctx.fillStyle='#fa4b2a';
                 ctx.fillRect(this.x, this.y, this.dai, this.rong);
@@ -43,12 +43,22 @@
         let rect1 = new Rect(0,0,200,90);
 
         rect1.drawRect();
+        let down = 0;
+
         function start() {
-            if (rect1.x<200) {
+            if (rect1.y<500 - rect1.rong && down == 0) {
                 rect1.moveDownRect();
+            }  else {
+                down = 1
+            }
+            if (rect1.y>0&&down == 1) {
+                rect1.moveUpRect();
+            } else {
+                down = 0
             }
         }
-        setInterval(start,50);
+
+        setInterval(start,1);
     </script>
 </body>
 </html>

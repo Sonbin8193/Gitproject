@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .cell {border: 1px solid salmon;
+        .cell {border: 0px solid salmon;
         width: 40px;
         height: 40px;
         text-align: center;
@@ -17,9 +17,18 @@
     </style>
 </head>
 <body>
+    
     <div id="gameBoard">
-        
     </div>
+    <canvas id="myCanvas" height="1000" width="1000"  style="border: 1px solid black;">
+        <img src="/class/ca ro/download.png" height="600" width="500" id="background"></canvas>
     <script src="caRo.js"></script>
+    <script>
+        let ctx = document.getElementById('myCanvas').getContext('2d');
+        let img = document.getElementById('background');
+        ctx.fillStyle = 'black';
+        ctx.fillRect(50,50,50,50);
+        ctx.drawImage(img,0,0);
+    </script>
 </body>
 </html>
