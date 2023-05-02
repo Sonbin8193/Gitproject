@@ -9,9 +9,25 @@
 <body>
   <button type="button" onclick="hello()">Xin chào</button>
   <script>
-   let x = new Date().getDate();
-      console.log(x);
-
+    let numberColor = Math.floor(Math.random()*6)+1;
+    let color = 0;
+        console.log(numberColor);
+        switch (numberColor) {
+            case 1:
+            color = 'red';
+            case 2:
+            color = 'blue';
+            case 3:
+            color = 'yellow';
+            case 4:
+            color = 'black';
+            case 5:
+            color = 'green';
+            case 6:
+            color = 'aqua';
+            break;  
+        }
+        document.write(color);
   </script>
 </body>
 </html>

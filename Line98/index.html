@@ -5,13 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .cell {border: 1px solid salmon;           
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        font-size: 12pt;
+        position: absolute;
+        }
+    </style>
 </head>
 <body>
-    <div id="gameBoard">
-        <canvas id="myCanvas"   height="1000"   width="1000">
-            <img src="./media/download.png" height="700px"  width="600px" id="backGround">
-        </canvas>
-    </div>
-    <script src="script.js"></script>
+    <div id="gameBoard"></div>
+    <canvas id="myCanvas"   height="1000"   width="1000" style="border: 1px solid black;">
+        <img src="./media/board.png" height="450px"  width="450px" id="backGround">
+    </canvas>
+    <script src="ball.js"></script>
+    <script src="board.js"></script>
 </body>
 </html>

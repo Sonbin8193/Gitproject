@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<html>
 <body>
-    <script>
-        class XeHoi{
-            constructor(hang, model, namsx) {
-                this.Hang = hang;
-                this.Model = model;
-                this.NamSx = namsx;
-            }
-            soNamSuDung() {
-                return new Date().getFullYear() - this.NamSx;
-            }
-        }
-        let xh1 = new XeHoi('Mazda', 'CX8', 2020);
-        console.log(xh1);
-        console.log('Xe đã sử dụng: ', xh1.soNamSuDung());
-    </script>
+<h1>Mouse Events</h1>
+<h2>The offsetX Property</h2>
+
+<p>The offsetX property returns the x-coordinate the mouse cursor, relative to the target element.</p>
+
+<p>In this example, the red DIV is the target element.</p>
+
+<p>Click inside the red DIV element:</p>
+
+<div onclick="myFunction(event)" style="border:2px solid red;height:100px"></div>
+
+<p id="demo"></p>
+
+<script>
+function myFunction(event) {
+  let x = event.offsetX;
+  document.getElementById("demo").innerHTML = "The x-coordinate is: " + x;
+}
+</script>
+
 </body>
 </html>
