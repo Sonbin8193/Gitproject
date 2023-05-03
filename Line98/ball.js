@@ -8,7 +8,7 @@ class Ball {
         let numberColor = Math.floor(Math.random()*7)+1;
         switch (numberColor) {
             case 1:
-                this.color = 'red';
+                this.color = 'ball.webp';
                 break;
             case 2:
                 this.color = 'blue';
@@ -23,6 +23,9 @@ class Ball {
                 this.color = 'green';
                 break;
             case 6:
+                this.color = 'aqua';
+                break;
+            case 7:
                 this.color = 'aqua';
                 break;
         }
@@ -47,7 +50,7 @@ class Ball {
                 this.status = 'ready to move';
                 break;
             case '4':
-                this.status = 'next turn';
+                this.status = 'hoan thanh';
                 break;
         }
         return this.status;
