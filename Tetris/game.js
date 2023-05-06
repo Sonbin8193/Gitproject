@@ -44,36 +44,16 @@ class GameBoard {
             }         
         }
     }
+
     getDataLandingBrick(random) {
-        if (random == 0) {
-            this.dataBoard[0][4].status = 0;
-            this.dataBoard[0][5].status = 0;
-            this.dataBoard[1][4].status = 0;
-            this.dataBoard[1][5].status = 0;
-            this.landingBrick.push(this.dataBoard[0][4]);
-            this.landingBrick.push(this.dataBoard[1][4]);
-            this.landingBrick.push(this.dataBoard[0][5]);
-            this.landingBrick.push(this.dataBoard[1][5]);
+        for (const idxY in this.dataBoard) {
+            for (const idxX in this.dataBoard) {
+               if (this.dataBoard[idxY][idxX].status != -1) {
+                this.landingBrick.push(this.dataBoard[idxY][idxX]);
+                this.dataBoard[idxY][idxX].status = -1;
+               }
+            }  
         }
-        if (random == 1) {
-            
-        }
-        if (random == 2) {
-            
-        }
-        if (random == 3) {
-            
-        }
-        if (random == 4) {
-            
-        }
-        if (random == 5) {
-            
-        }
-        if (random == 6) {
-            
-        }
-        return this.landingBrick;
     }
     drawNextBrick(random) {
         if (random == 0) {
@@ -203,8 +183,12 @@ class GameBoard {
         }
         this.drawNextBrick(random);
     }
+    
     moveBrick() {
+        for (const idxY in this.landingBrick) {
+                this.landingBrick[idxY][idxY].y += 1;
 
+        }
     }
     rolateBrick() {}
     clearBrick() {}
