@@ -20,20 +20,21 @@ class GameBoard {
         this.leftNoticeBoard = 50 + this.left + SPACE + this.col*(SPACE+BRICK_SIZE);
         this.topNoticeBoard = (45 + this.left + SPACE + this.row*(SPACE+BRICK_SIZE))/3;
     }
-
+    // Tạo dữ liệu màn chơi
     makeDataBoard() {
         for (let i = 0; i < this.row; i++) {
             this.dataBoard[i] = [];
             for (let j = 0; j < this.col; j++) {
                this.dataBoard[i][j] = {
-                x: i,
-                y: j,
+                y: i,
+                x: j,
                 status: -1
                };
             }
         }
         return this.dataBoard;
     }
+    //Vẽ màn chơi
     drawBoard() {
         ctx.strokeRect(this.left,this.top,this.width,this.height);
         ctx.stroke();
@@ -44,19 +45,31 @@ class GameBoard {
             }         
         }
     }
-
-    getDataLandingBrick(random) {
+    // Vẽ ô gạch random
+    makeRandomBrick() {
+        random = Math.round(Math.random()*0); // => chỉnh rơi brick
+        this.drawBrick(random);
+        return random;
+    }
+    // Lấy dữ liệu vị trí ô gạch xuất hiện
+    getDataLandingBrick() {
         for (const idxY in this.dataBoard) {
-            for (const idxX in this.dataBoard) {
-               if (this.dataBoard[idxY][idxX].status != -1) {
+            for (const idxX in this.dataBoard[idxY]) {
+                if (this.dataBoard[idxY][idxX].status != -1) {
                 this.landingBrick.push(this.dataBoard[idxY][idxX]);
                 this.dataBoard[idxY][idxX].status = -1;
-               }
+                }
             }  
         }
     }
+    //Vẽ ô gạch random lượt sắp tới
     drawNextBrick(random) {
         if (random == 0) {
+            this.dataBoard[0][4].status = 0;
+            this.dataBoard[0][5].status = 0;
+            this.dataBoard[1][4].status = 0;
+            this.dataBoard[1][5].status = 0;
+            this.getDataLandingBrick();
             this.nextBrick = 'square';
             ctx.fillStyle = "red";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -113,8 +126,23 @@ class GameBoard {
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 1*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
         }
         console.log(`Next Brick: ${this.nextBrick}`);
-        this.getDataLandingBrick(random);
+        console.log(`Data Brick: ${this.landingBrick}`);
+        return this.landingBrick;
     }
+    //Hiển thị khung thông báo ô gạch lượt tới
+    noticeNextBrick() {
+        ctx.strokeRect (this.leftNoticeBoard,this.topNoticeBoard, SPACE+3*(SPACE+BRICK_MINI), SPACE+4*(SPACE+BRICK_MINI))
+        ctx.stroke();
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 3; j++) {
+            ctx.beginPath();
+                ctx.fillStyle = "#D3D3D3";
+                ctx.fillRect(5+this.leftNoticeBoard + j*(SPACE+BRICK_MINI),5 + this.topNoticeBoard + i*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
+            }         
+        }
+        this.drawNextBrick(random);
+    }
+    //Hiển thị ô gạch
     drawBrick(random) {
         if (random == 0) {
             ctx.fillStyle = "red";
@@ -165,29 +193,11 @@ class GameBoard {
             ctx.fillRect(this.left + SPACE + 4*(SPACE+BRICK_SIZE),this.top+SPACE+ 1*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
             ctx.fillRect(this.left + SPACE + 3*(SPACE+BRICK_SIZE),this.top+SPACE+ 1*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
         }
+        return this.landingBrick;
     }
-    makeRandomBrick() {
-        random = Math.round(Math.random()*0); // => chỉnh rơi brick
-        this.drawBrick(random);
-        return random;
-    }
-    noticeNextBrick() {
-        ctx.strokeRect (this.leftNoticeBoard,this.topNoticeBoard, SPACE+3*(SPACE+BRICK_MINI), SPACE+4*(SPACE+BRICK_MINI))
-        ctx.stroke();
-        for (let i = 0; i < 4; i++) {
-            for (let j = 0; j < 3; j++) {
-            ctx.beginPath();
-                ctx.fillStyle = "#D3D3D3";
-                ctx.fillRect(5+this.leftNoticeBoard + j*(SPACE+BRICK_MINI),5 + this.topNoticeBoard + i*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
-            }         
-        }
-        this.drawNextBrick(random);
-    }
-    
-    moveBrick() {
-        for (const idxY in this.landingBrick) {
-                this.landingBrick[idxY][idxY].y += 1;
-
+    moveDownBrick() {
+        for (const idx in this.landingBrick) {
+                this.landingBrick[idx].y += 1;
         }
     }
     rolateBrick() {}
