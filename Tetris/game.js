@@ -13,7 +13,7 @@ class GameBoard {
         this.width = SPACE + this.col*(SPACE+BRICK_SIZE);
         this.height = SPACE + (this.row - 5)*(SPACE+BRICK_SIZE);
         this.dataBoard = [];
-        this.landingBrick = [];
+        this.fallingBrick = [];
         this.landBrick = [];
         this.brick = null;
         this.nextBrick = null;
@@ -49,25 +49,27 @@ class GameBoard {
     // Vẽ ô gạch random
     makeRandomBrick() {
         random = Math.round(Math.random()*6); // => chỉnh rơi brick
-        this.displayBrick(random);
+        this.displayFallBrick(random);
         return random;
     }
     // Lấy dữ liệu vị trí ô gạch xuất hiện
-    getDataLandingBrick() {
+    getDataFallingBrick() {
         for (const idxY in this.dataBoard) {
             for (const idxX in this.dataBoard[idxY]) {
                 if (this.dataBoard[idxY][idxX].status != -1) {
-                this.landingBrick.push(this.dataBoard[idxY][idxX]);
+                this.fallingBrick.push(this.dataBoard[idxY][idxX]);
                 }
             }  
         }
-        return this.landingBrick;
+        return this.fallingBrick;
     }
     // Lấy dữ liệu vị trí ô gạch rơi xuống thành công
     getDataLandBrick() {
-        for (const idx in this.landingBrick) {
-            this.landBrick.push(this.landingBrick[idx]);
-            switch (this.landingBrick[idx].status) {
+        for (const idx in this.fallingBrick) {
+            this.landBrick.push(this.fallingBrick[idx]);
+        }
+        for (const idx in this.landBrick) {
+            switch (this.landBrick[idx].status) {
                 case 0:
                     ctx.fillStyle = "red";
                     break;
@@ -90,10 +92,9 @@ class GameBoard {
                     ctx.fillStyle = "pink";
                     break;
             }
-            this.drawBrick();
+            this.drawLandBrick();
         }
-      
-        this.landingBrick = [];
+        this.fallingBrick = [];
         return this.landBrick;
     }
     //Vẽ ô gạch random lượt sắp tới
@@ -104,7 +105,7 @@ class GameBoard {
             this.dataBoard[1][3].status = 0;
             this.dataBoard[1][4].status = 0;
             this.dataBoard[1][5].status = 0;
-            this.getDataLandingBrick();
+            this.getDataFallingBrick();
             this.nextBrick = 'arrow';
             ctx.fillStyle = "red";
             // Vẽ brick turn sắp tới
@@ -118,7 +119,7 @@ class GameBoard {
             this.dataBoard[0][4].status = 1;
             this.dataBoard[1][3].status = 1;
             this.dataBoard[1][4].status = 1;
-            this.getDataLandingBrick();
+            this.getDataFallingBrick();
             this.nextBrick = 'square';
             ctx.fillStyle = "yellow";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -131,7 +132,7 @@ class GameBoard {
             this.dataBoard[0][4].status = 2;
             this.dataBoard[1][3].status = 2;
             this.dataBoard[2][3].status = 2;
-            this.getDataLandingBrick();
+            this.getDataFallingBrick();
             this.nextBrick = 'rightL';
             ctx.fillStyle = "violet";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -144,7 +145,7 @@ class GameBoard {
             this.dataBoard[1][4].status = 3;
             this.dataBoard[2][4].status = 3;
             this.dataBoard[3][4].status = 3;
-            this.getDataLandingBrick();
+            this.getDataFallingBrick();
             this.nextBrick = 'line';
             ctx.fillStyle = "blue";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -157,7 +158,7 @@ class GameBoard {
             this.dataBoard[0][4].status = 4;
             this.dataBoard[1][4].status = 4;
             this.dataBoard[2][4].status = 4;
-            this.getDataLandingBrick();
+            this.getDataFallingBrick();
             this.nextBrick = 'leftL';
             ctx.fillStyle = "green";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -170,7 +171,7 @@ class GameBoard {
             this.dataBoard[0][4].status = 5;
             this.dataBoard[1][4].status = 5;
             this.dataBoard[1][5].status = 5;
-            this.getDataLandingBrick();
+            this.getDataFallingBrick();
             this.nextBrick = 'rightZ';
             ctx.fillStyle = "orange";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -183,7 +184,7 @@ class GameBoard {
             this.dataBoard[0][5].status = 6;
             this.dataBoard[1][4].status = 6;
             this.dataBoard[1][3].status = 6;
-            this.getDataLandingBrick();
+            this.getDataFallingBrick();
             this.nextBrick = 'leftZ';
             ctx.fillStyle = "pink";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -207,128 +208,156 @@ class GameBoard {
         }
         this.drawNextBrick(random);
     }
-    //Vẽ ô gạch
-    drawBrick() {
-        if (this.landingBrick.length>1) {
-            for (const idx in this.landingBrick) {
-                if (this.landingBrick[idx].y > -1) {
-                    ctx.fillRect(this.left+SPACE+this.landingBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.landingBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
-                }
-            } 
-        } else {
-            for (const idx in this.landBrick) {
-                if (this.landBrick[idx].y > -1) {
-                    ctx.fillRect(this.left+SPACE+this.landBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.landBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
-                }
-            } 
-        }
+    //Vẽ ô gạch đang rơi
+    drawFallBrick() {
+        for (const idx in this.fallingBrick) {
+            if (this.fallingBrick[idx].y > -1) {
+                ctx.fillRect(this.left+SPACE+this.fallingBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.fallingBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
+            }
+        } 
     }
-    // Hiển thị ô gạch
-    displayBrick(random) {
+    // Hiển thị ô gạch đang rơi
+    displayFallBrick(random) {
         switch (random) {
             case 0:
                 ctx.fillStyle = "red";
                 break;
-                case 1:
+            case 1:
                 ctx.fillStyle = "yellow";
                 break;
-                case 2:
+            case 2:
                 ctx.fillStyle = "violet";
                 break;
-                case 3:
+            case 3:
                 ctx.fillStyle = "blue";
                 break;
-                case 4:
+            case 4:
                 ctx.fillStyle = "green";
                 break;
-                case 5:
+            case 5:
                 ctx.fillStyle = "orange";
                 break;
-                case 6:
+            case 6:
                 ctx.fillStyle = "pink";
                 break;
+            default:
+                ctx.fillStyle = "#D3D3D3";
+                break;
         }
-        this.drawBrick(); 
+        this.drawFallBrick(); 
     }
-    // displayLandBrick() {
-    //     switch (this.landingBrick[idx].status) {
-    //         case 0:
-    //             ctx.fillStyle = "red";
-    //             break;
-    //             case 1:
-    //             ctx.fillStyle = "yellow";
-    //             break;
-    //             case 2:
-    //             ctx.fillStyle = "violet";
-    //             break;
-    //             case 3:
-    //             ctx.fillStyle = "blue";
-    //             break;
-    //             case 4:
-    //             ctx.fillStyle = "green";
-    //             break;
-    //             case 5:
-    //             ctx.fillStyle = "orange";
-    //             break;
-    //             case 6:
-    //             ctx.fillStyle = "pink";
-    //             break;
-    //     }
-    //     this.drawBrick();
-    // }
+    // Vẽ ô gạch đã hạ cánh
+    drawLandBrick() {
+        for (const idx in this.landBrick) {
+                ctx.fillRect(this.left+SPACE+this.landBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.landBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
+        } 
+    }
+    // Hiển thị ô gạch đã hạ cánh
+    displayLandBrick() {
+        for (const idx in this.landBrick) {
+            switch (this.landBrick[idx].status) {
+                case 0:
+                    ctx.fillStyle = "red";
+                    break;
+                    case 1:
+                    ctx.fillStyle = "yellow";
+                    break;
+                    case 2:
+                    ctx.fillStyle = "violet";
+                    break;
+                    case 3:
+                    ctx.fillStyle = "blue";
+                    break;
+                    case 4:
+                    ctx.fillStyle = "green";
+                    break;
+                    case 5:
+                    ctx.fillStyle = "orange";
+                    break;
+                    case 6:
+                    ctx.fillStyle = "pink";
+                    break;
+            }
+            this.drawLandBrick();
+        } 
+    }
     // Brick rơi tự do ( Nhấn mũi tên xuống sẽ rơi nhanh hơn gấp đôi)
     autoDownBrick() {
-        for (const idx in this.landingBrick) {
-                this.landingBrick[idx].y += 1;
+        for (const idx in this.fallingBrick) {
+                this.fallingBrick[idx].y += 1;
         }
         this.drawBoard();
-        this.displayBrick(random);
+        this.displayFallBrick(random);
     }
     // Dịch brick sang trái ( dùng nút mũi tên sang trái)
     moveLeftBrick() { 
-        for (const idx in this.landingBrick) {
-                this.landingBrick[idx].x -= 1;
+        for (const idx in this.fallingBrick) {
+                this.fallingBrick[idx].x -= 1;
         }
     this.drawBoard();
-    this.displayBrick(random);
+    this.displayFallBrick(random);
     }
     // Dịch brick sang phải ( dùng nút mũi tên sang phải)
     moveRightBrick() {
-        for (const idx in this.landingBrick) {
-                this.landingBrick[idx].x += 1;
+        for (const idx in this.fallingBrick) {
+                this.fallingBrick[idx].x += 1;
         }
     this.drawBoard();
-    this.displayBrick(random);
+    this.displayFallBrick(random);
     }
     //xoay Brick
     rolateBrick() {
-        for (const idx in this.landingBrick) {
-            if (this.landingBrick[idx].x == this.landingBrick[2].x && this.landingBrick[idx].y == this.landingBrick[2].y ) {
+        for (const idx in this.fallingBrick) {
+            if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y ) {
                 continue;
-            } else if (this.landingBrick[idx].x == this.landingBrick[2].x && this.landingBrick[idx].y == this.landingBrick[2].y -1) {
-                this.landingBrick[idx].x = this.landingBrick[2].x + 1;
-                this.landingBrick[idx].y = this.landingBrick[2].y; 
-            } else if (this.landingBrick[idx].x == this.landingBrick[2].x + 1 && this.landingBrick[idx].y == this.landingBrick[2].y -1) {
-                this.landingBrick[idx].y = this.landingBrick[2].y + 1;  
-            } else if (this.landingBrick[idx].x == this.landingBrick[2].x + 1 && this.landingBrick[idx].y == this.landingBrick[2].y) {
-                this.landingBrick[idx].x = this.landingBrick[2].x;
-                this.landingBrick[idx].y = this.landingBrick[2].y + 1; 
-            } else if (this.landingBrick[idx].x == this.landingBrick[2].x +1  && this.landingBrick[idx].y == this.landingBrick[2].y +1) {
-                this.landingBrick[idx].x = this.landingBrick[2].x -1;  
-            }else if (this.landingBrick[idx].x == this.landingBrick[2].x && this.landingBrick[idx].y == this.landingBrick[2].y +1) {
-                this.landingBrick[idx].x = this.landingBrick[2].x - 1;
-                this.landingBrick[idx].y = this.landingBrick[2].y;
-            }else if (this.landingBrick[idx].x == this.landingBrick[2].x -1&& this.landingBrick[idx].y == this.landingBrick[2].y +1) {
-                this.landingBrick[idx].y = this.landingBrick[2].y -1;
-            }else if (this.landingBrick[idx].x == this.landingBrick[2].x -1 && this.landingBrick[idx].y == this.landingBrick[2].y) {
-                this.landingBrick[idx].x = this.landingBrick[2].x;
-                this.landingBrick[idx].y = this.landingBrick[2].y -1;
-            }else if (this.landingBrick[idx].x == this.landingBrick[2].x -1 && this.landingBrick[idx].y == this.landingBrick[2].y -1) {
-                this.landingBrick[idx].x = this.landingBrick[2].x +1;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y -1) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x + 1;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y; 
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y -2) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x + 2;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y; 
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x + 1 && this.fallingBrick[idx].y == this.fallingBrick[2].y -1) {
+                this.fallingBrick[idx].y = this.fallingBrick[2].y + 1;  
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x + 1 && this.fallingBrick[idx].y == this.fallingBrick[2].y) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y + 1; 
+            } else if(this.fallingBrick[idx].x == this.fallingBrick[2].x + 2 && this.fallingBrick[idx].y == this.fallingBrick[2].y) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y + 2; 
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x +1  && this.fallingBrick[idx].y == this.fallingBrick[2].y +1) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x -1;  
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y +1) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x - 1;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y +2) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x - 2;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -1&& this.fallingBrick[idx].y == this.fallingBrick[2].y +1) {
+                this.fallingBrick[idx].y = this.fallingBrick[2].y -1;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -1 && this.fallingBrick[idx].y == this.fallingBrick[2].y) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y -1;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -2 && this.fallingBrick[idx].y == this.fallingBrick[2].y) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y -2;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -1 && this.fallingBrick[idx].y == this.fallingBrick[2].y -1) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x +1;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x +2 && this.fallingBrick[idx].y == this.fallingBrick[2].y -1) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x +1;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y +2;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x +1 && this.fallingBrick[idx].y == this.fallingBrick[2].y +2) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x -2;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y +1;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -2 && this.fallingBrick[idx].y == this.fallingBrick[2].y +1) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x -1;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y -2;
+            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -1 && this.fallingBrick[idx].y == this.fallingBrick[2].y -2) {
+                this.fallingBrick[idx].x = this.fallingBrick[2].x +2;
+                this.fallingBrick[idx].y = this.fallingBrick[2].y -1;
             }
         }
         this.drawBoard();
-        this.displayBrick(random);
+        this.displayFallBrick(random);
     }
     clearBrick() {};
     earnScore() {};
@@ -337,43 +366,46 @@ let newGame = new GameBoard(25,10);
 newGame.makeDataBoard();
 newGame.drawBoard();
 let random;
+let a=1;
 newGame.makeRandomBrick();
 console.log(`Số random: ${random}`);
 newGame.noticeNextBrick();
-let downBrick = setInterval(autoDown,50);
-console.log(`LandingBrick Data: ${newGame.landingBrick}`)
+//let downBrick = setInterval(autoDown,250);
+console.log(`LandingBrick Data: ${newGame.fallingBrick}`)
 console.log(`LandBrick Data: ${newGame.landBrick}`);
 function autoDown() {
     newGame.autoDownBrick();
-    if (newGame.landingBrick[0].y == 19 || newGame.landingBrick[1].y == 19 || newGame.landingBrick[2].y == 19 || newGame.landingBrick[3].y == 19) {
-        stopAutoDown();
-        console.log('Dừng lần 1');
+    if (newGame.fallingBrick[0].y == 19 || newGame.fallingBrick[1].y == 19 || newGame.fallingBrick[2].y == 19 || newGame.fallingBrick[3].y == 19) {
+        //stopAutoDown();
+        a++;
+        console.log(`Dừng lần ${a}`);
         newGame.getDataLandBrick();
-        newGame.displayLandBrick();
+        //newGame.fallingBrick = [];
         newGame.makeRandomBrick();
+        console.log(`Số random: ${random}`);
         newGame.noticeNextBrick();
     }
+    setTimeout(autoDown,500);
 }
-
-function stopAutoDown() {
-    clearInterval(downBrick);
-}
+autoDown();
 
 onkeydown = function(evt) {
     switch (evt.keyCode) {
         case 37:
-            if (newGame.landingBrick[0].x != 0 && newGame.landingBrick[1].x != 0 && newGame.landingBrick[2].x != 0 && newGame.landingBrick[3].x != 0 ) {
+            if (newGame.fallingBrick[0].x != 0 && newGame.fallingBrick[1].x != 0 && newGame.fallingBrick[2].x != 0 && newGame.fallingBrick[3].x != 0 ) {
                 newGame.moveLeftBrick();
-                console.log(newGame.landingBrick[1].x);
+                console.log(newGame.fallingBrick[1].x);
             }
             break;
         case 38:
-            newGame.rolateBrick();
+            if (newGame.fallingBrick[0].y < 20 || newGame.fallingBrick[1].y < 20 || newGame.fallingBrick[2].y < 20 || newGame.fallingBrick[3].y < 20) {
+                newGame.rolateBrick();
+            }
             break;
         case 39:
-            if (newGame.landingBrick[0].x != 9 && newGame.landingBrick[1].x != 9 && newGame.landingBrick[2].x != 9 && newGame.landingBrick[3].x != 9 ) {
+            if (newGame.fallingBrick[0].x != 9 && newGame.fallingBrick[1].x != 9 && newGame.fallingBrick[2].x != 9 && newGame.fallingBrick[3].x != 9 ) {
                 newGame.moveRightBrick();
-                console.log(newGame.landingBrick[1].x);
+                console.log(newGame.fallingBrick[1].x);
             }
             break;
         case 40:
@@ -381,8 +413,8 @@ onkeydown = function(evt) {
             let downBrickFast = setInterval(moveDown,30);
             function moveDown() {
             newGame.autoDownBrick();
-            for (const idx in newGame.landingBrick) {
-                if (newGame.landingBrick[idx].y == newGame.dataBoard[24][0].y) {
+            for (const idx in newGame.fallingBrick) {
+                if (newGame.fallingBrick[idx].y == newGame.dataBoard[24][0].y) {
                     stopDown();
                     newGame.getDataLandBrick();
                 }
