@@ -6,19 +6,22 @@ let ctx = canvas.getContext('2d');
 
 class GameBoard {
     constructor(row, col) {
+        // khoảng cách khung chơi game so với khung canvas
         this.left = 200;
         this.top = 50
+        // Hàng và cột màn chơi
         this.col = col;
         this.row = row;
+        // kích thước giữa các ô
         this.width = SPACE + this.col*(SPACE+BRICK_SIZE);
         this.height = SPACE + (this.row - 5)*(SPACE+BRICK_SIZE);
-        this.dataBoard = [];
-        this.fallingBrick = [];
-        this.landBrick = [];
-        this.brick = null;
-        this.nextBrick = null;
+        this.dataBoard = []; // Dữ liệu tổng ghi lại màn chơi
+        this.fallingBrick = []; // Dữ liệu Brick rơi xuống
+        this.landBrick = []; // Dữ liệu Brick đã hạ cách
+        this.brick = null; // Brick hiện tại đang rơi
+        this.nextBrick = null; // Brick lượt sắp tới
         this.score = 0;
-        this.leftNoticeBoard = 50 + this.left + SPACE + this.col*(SPACE+BRICK_SIZE);
+        this.leftNoticeBoard = 50 + this.left + SPACE + this.col*(SPACE+BRICK_SIZE); // Khoảng cách khung thông báo brick lượt sắp tới
         this.topNoticeBoard = (45 + this.left + SPACE + this.row*(SPACE+BRICK_SIZE))/3;
     }
     // Tạo dữ liệu màn chơi
@@ -68,32 +71,7 @@ class GameBoard {
         for (const idx in this.fallingBrick) {
             this.landBrick.push(this.fallingBrick[idx]);
         }
-        for (const idx in this.landBrick) {
-            switch (this.landBrick[idx].status) {
-                case 0:
-                    ctx.fillStyle = "red";
-                    break;
-                    case 1:
-                    ctx.fillStyle = "yellow";
-                    break;
-                    case 2:
-                    ctx.fillStyle = "violet";
-                    break;
-                    case 3:
-                    ctx.fillStyle = "blue";
-                    break;
-                    case 4:
-                    ctx.fillStyle = "green";
-                    break;
-                    case 5:
-                    ctx.fillStyle = "orange";
-                    break;
-                    case 6:
-                    ctx.fillStyle = "pink";
-                    break;
-            }
-            this.drawLandBrick();
-        }
+        this.displayLandBrick();
         this.fallingBrick = [];
         return this.landBrick;
     }
@@ -247,11 +225,6 @@ class GameBoard {
         this.drawFallBrick(); 
     }
     // Vẽ ô gạch đã hạ cánh
-    drawLandBrick() {
-        for (const idx in this.landBrick) {
-                ctx.fillRect(this.left+SPACE+this.landBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.landBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
-        } 
-    }
     // Hiển thị ô gạch đã hạ cánh
     displayLandBrick() {
         for (const idx in this.landBrick) {
@@ -278,7 +251,7 @@ class GameBoard {
                     ctx.fillStyle = "pink";
                     break;
             }
-            this.drawLandBrick();
+            ctx.fillRect(this.left+SPACE+this.landBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.landBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
         } 
     }
     // Brick rơi tự do ( Nhấn mũi tên xuống sẽ rơi nhanh hơn gấp đôi)
@@ -288,6 +261,7 @@ class GameBoard {
         }
         this.drawBoard();
         this.displayFallBrick(random);
+        this.displayLandBrick();
     }
     // Dịch brick sang trái ( dùng nút mũi tên sang trái)
     moveLeftBrick() { 
@@ -296,6 +270,7 @@ class GameBoard {
         }
     this.drawBoard();
     this.displayFallBrick(random);
+    this.displayLandBrick();
     }
     // Dịch brick sang phải ( dùng nút mũi tên sang phải)
     moveRightBrick() {
@@ -304,6 +279,7 @@ class GameBoard {
         }
     this.drawBoard();
     this.displayFallBrick(random);
+    this.displayLandBrick();
     }
     //xoay Brick
     rolateBrick() {
@@ -358,10 +334,12 @@ class GameBoard {
         }
         this.drawBoard();
         this.displayFallBrick(random);
+         this.displayLandBrick();
     }
     clearBrick() {};
     earnScore() {};
 }
+//Khởi tạo màn chơi
 let newGame = new GameBoard(25,10);
 newGame.makeDataBoard();
 newGame.drawBoard();
@@ -370,17 +348,15 @@ let a=1;
 newGame.makeRandomBrick();
 console.log(`Số random: ${random}`);
 newGame.noticeNextBrick();
-//let downBrick = setInterval(autoDown,250);
 console.log(`LandingBrick Data: ${newGame.fallingBrick}`)
 console.log(`LandBrick Data: ${newGame.landBrick}`);
+// Game Loop
 function autoDown() {
     newGame.autoDownBrick();
     if (newGame.fallingBrick[0].y == 19 || newGame.fallingBrick[1].y == 19 || newGame.fallingBrick[2].y == 19 || newGame.fallingBrick[3].y == 19) {
-        //stopAutoDown();
         a++;
         console.log(`Dừng lần ${a}`);
         newGame.getDataLandBrick();
-        //newGame.fallingBrick = [];
         newGame.makeRandomBrick();
         console.log(`Số random: ${random}`);
         newGame.noticeNextBrick();
@@ -388,7 +364,7 @@ function autoDown() {
     setTimeout(autoDown,500);
 }
 autoDown();
-
+// Phím chức năng: sang trái, sang phải, xoay brick, rơi xuống nhanh
 onkeydown = function(evt) {
     switch (evt.keyCode) {
         case 37:
@@ -426,5 +402,5 @@ onkeydown = function(evt) {
             break;
         default:
             break;
-        }
+    }
 }
