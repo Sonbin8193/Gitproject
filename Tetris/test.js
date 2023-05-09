@@ -216,11 +216,11 @@ class GameBoard {
         }
         this.drawNextBrick(random);
     }
-    //Vẽ ô gạch đang rơi
+    //Hiển thị ô gạch đang rơi
     displayFallBrick() {
         for (const idxY in this.fallBrick) {
             for (const idxX in this.fallBrick[idxY]) {
-                switch (random) {
+                switch (this.fallBrick[idxY][idxX].status) {
                     case 0:
                         ctx.fillStyle = "red";
                         break;
@@ -252,7 +252,6 @@ class GameBoard {
             }
         }
     } 
-    // Hiển thị ô gạch đang rơi
 
     // Hiển thị ô gạch đã hạ cánh
     displayLandBrick() {
@@ -291,7 +290,10 @@ class GameBoard {
     autoDownBrick() {
         for (const idxY in this.fallBrick) {
             for (const idxX in this.fallBrick[idxY]) {
-                    this.fallBrick[idxY][idxX].y += 1;
+                if (this.fallBrick[idxY][idxX].y < 20 && this.fallBrick[idxY][idxX].status != -1 ) {
+                    
+                }
+                    
             }
         }
         this.drawBoard();
@@ -393,18 +395,18 @@ newGame.noticeNextBrick();
 // Game Loop
 function autoDown() {
     newGame.autoDownBrick();
-    for (const idxY in newGame.fallBrick) {
-        for (const idxX in newGame.fallBrick[idxY]) {
-            if (newGame.fallBrick[idxY][idxX].y == 19 && newGame.fallBrick[idxY][idxX].status != -1) {
-                a++;
-                console.log(`Dừng lần ${a}`);
-                newGame.getDataLandBrick();
-                newGame.makeRandomBrick();
-                console.log(`Số random: ${random}`);
-                newGame.noticeNextBrick();
-            }
-        }
-    }
+    // for (const idxY in newGame.fallBrick) {
+    //     for (const idxX in newGame.fallBrick[idxY]) {
+    //         if (newGame.fallBrick[idxY][idxX].y == 19 && newGame.fallBrick[idxY][idxX].status != -1) {
+    //             a++;
+    //             console.log(`Dừng lần ${a}`);
+    //             newGame.getDataLandBrick();
+    //             newGame.makeRandomBrick();
+    //             console.log(`Số random: ${random}`);
+    //             newGame.noticeNextBrick();
+    //         }
+    //     }
+    // }
     
    
     setTimeout(autoDown,500);

@@ -6,22 +6,19 @@ let ctx = canvas.getContext('2d');
 
 class GameBoard {
     constructor(row, col) {
-        // khoảng cách khung chơi game so với khung canvas
         this.left = 200;
         this.top = 50
-        // Hàng và cột màn chơi
         this.col = col;
         this.row = row;
-        // kích thước giữa các ô
         this.width = SPACE + this.col*(SPACE+BRICK_SIZE);
         this.height = SPACE + (this.row - 5)*(SPACE+BRICK_SIZE);
-        this.dataBoard = []; // Dữ liệu tổng ghi lại màn chơi
-        this.fallingBrick = []; // Dữ liệu Brick rơi xuống
-        this.landBrick = []; // Dữ liệu Brick đã hạ cách
-        this.brick = null; // Brick hiện tại đang rơi
-        this.nextBrick = null; // Brick lượt sắp tới
+        this.dataBoard = [];
+        this.fallBrick = [];
+        this.landBrick = [];
+        this.brick = null;
+        this.nextBrick = null;
         this.score = 0;
-        this.leftNoticeBoard = 50 + this.left + SPACE + this.col*(SPACE+BRICK_SIZE); // Khoảng cách khung thông báo brick lượt sắp tới
+        this.leftNoticeBoard = 50 + this.left + SPACE + this.col*(SPACE+BRICK_SIZE);
         this.topNoticeBoard = (45 + this.left + SPACE + this.row*(SPACE+BRICK_SIZE))/3;
     }
     // Tạo dữ liệu màn chơi
@@ -56,23 +53,22 @@ class GameBoard {
         return random;
     }
     // Lấy dữ liệu vị trí ô gạch xuất hiện
-    getDataFallingBrick() {
+    getDataFallBrick() {
         for (const idxY in this.dataBoard) {
             for (const idxX in this.dataBoard[idxY]) {
                 if (this.dataBoard[idxY][idxX].status != -1) {
-                this.fallingBrick.push(this.dataBoard[idxY][idxX]);
+                this.fallBrick.push(this.dataBoard[idxY][idxX]);
                 }
             }  
         }
-        return this.fallingBrick;
+        return this.fallBrick;
     }
     // Lấy dữ liệu vị trí ô gạch rơi xuống thành công
     getDataLandBrick() {
-        for (const idx in this.fallingBrick) {
-            this.landBrick.push(this.fallingBrick[idx]);
+        for (const idx in this.fallBrick) {
+            this.landBrick.push(this.fallBrick[idx]);
         }
-        this.displayLandBrick();
-        this.fallingBrick = [];
+        this.fallBrick = [];
         return this.landBrick;
     }
     //Vẽ ô gạch random lượt sắp tới
@@ -83,7 +79,7 @@ class GameBoard {
             this.dataBoard[1][3].status = 0;
             this.dataBoard[1][4].status = 0;
             this.dataBoard[1][5].status = 0;
-            this.getDataFallingBrick();
+            this.getDataFallBrick();
             this.nextBrick = 'arrow';
             ctx.fillStyle = "red";
             // Vẽ brick turn sắp tới
@@ -97,7 +93,7 @@ class GameBoard {
             this.dataBoard[0][4].status = 1;
             this.dataBoard[1][3].status = 1;
             this.dataBoard[1][4].status = 1;
-            this.getDataFallingBrick();
+            this.getDataFallBrick();
             this.nextBrick = 'square';
             ctx.fillStyle = "yellow";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -110,7 +106,7 @@ class GameBoard {
             this.dataBoard[0][4].status = 2;
             this.dataBoard[1][3].status = 2;
             this.dataBoard[2][3].status = 2;
-            this.getDataFallingBrick();
+            this.getDataFallBrick();
             this.nextBrick = 'rightL';
             ctx.fillStyle = "violet";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -123,7 +119,7 @@ class GameBoard {
             this.dataBoard[1][4].status = 3;
             this.dataBoard[2][4].status = 3;
             this.dataBoard[3][4].status = 3;
-            this.getDataFallingBrick();
+            this.getDataFallBrick();
             this.nextBrick = 'line';
             ctx.fillStyle = "blue";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -136,7 +132,7 @@ class GameBoard {
             this.dataBoard[0][4].status = 4;
             this.dataBoard[1][4].status = 4;
             this.dataBoard[2][4].status = 4;
-            this.getDataFallingBrick();
+            this.getDataFallBrick();
             this.nextBrick = 'leftL';
             ctx.fillStyle = "green";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -149,7 +145,7 @@ class GameBoard {
             this.dataBoard[0][4].status = 5;
             this.dataBoard[1][4].status = 5;
             this.dataBoard[1][5].status = 5;
-            this.getDataFallingBrick();
+            this.getDataFallBrick();
             this.nextBrick = 'rightZ';
             ctx.fillStyle = "orange";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -162,7 +158,7 @@ class GameBoard {
             this.dataBoard[0][5].status = 6;
             this.dataBoard[1][4].status = 6;
             this.dataBoard[1][3].status = 6;
-            this.getDataFallingBrick();
+            this.getDataFallBrick();
             this.nextBrick = 'leftZ';
             ctx.fillStyle = "pink";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -188,9 +184,9 @@ class GameBoard {
     }
     //Vẽ ô gạch đang rơi
     drawFallBrick() {
-        for (const idx in this.fallingBrick) {
-            if (this.fallingBrick[idx].y > -1) {
-                ctx.fillRect(this.left+SPACE+this.fallingBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.fallingBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
+        for (const idx in this.fallBrick) {
+            if (this.fallBrick[idx].y > -1) {
+                ctx.fillRect(this.left+SPACE+this.fallBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.fallBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
             }
         } 
     }
@@ -224,7 +220,6 @@ class GameBoard {
         }
         this.drawFallBrick(); 
     }
-    // Vẽ ô gạch đã hạ cánh
     // Hiển thị ô gạch đã hạ cánh
     displayLandBrick() {
         for (const idx in this.landBrick) {
@@ -256,8 +251,8 @@ class GameBoard {
     }
     // Brick rơi tự do ( Nhấn mũi tên xuống sẽ rơi nhanh hơn gấp đôi)
     autoDownBrick() {
-        for (const idx in this.fallingBrick) {
-                this.fallingBrick[idx].y += 1;
+        for (const idx in this.fallBrick) {
+                this.fallBrick[idx].y += 1;
         }
         this.drawBoard();
         this.displayFallBrick(random);
@@ -265,8 +260,8 @@ class GameBoard {
     }
     // Dịch brick sang trái ( dùng nút mũi tên sang trái)
     moveLeftBrick() { 
-        for (const idx in this.fallingBrick) {
-                this.fallingBrick[idx].x -= 1;
+        for (const idx in this.fallBrick) {
+                this.fallBrick[idx].x -= 1;
         }
     this.drawBoard();
     this.displayFallBrick(random);
@@ -274,133 +269,161 @@ class GameBoard {
     }
     // Dịch brick sang phải ( dùng nút mũi tên sang phải)
     moveRightBrick() {
-        for (const idx in this.fallingBrick) {
-                this.fallingBrick[idx].x += 1;
+        for (const idx in this.fallBrick) {
+                this.fallBrick[idx].x += 1;
         }
     this.drawBoard();
     this.displayFallBrick(random);
     this.displayLandBrick();
     }
+    notMoveBrick() {
+        for (const idx in this.fallBrick) {
+            this.fallBrick[idx].x += 0;
+        }
+    }
     //xoay Brick
     rolateBrick() {
-        for (const idx in this.fallingBrick) {
-            if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y ) {
+        for (const idx in this.fallBrick) {
+            if (this.fallBrick[idx].x == this.fallBrick[2].x && this.fallBrick[idx].y == this.fallBrick[2].y ) {
                 continue;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y -1) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x + 1;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y; 
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y -2) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x + 2;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y; 
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x + 1 && this.fallingBrick[idx].y == this.fallingBrick[2].y -1) {
-                this.fallingBrick[idx].y = this.fallingBrick[2].y + 1;  
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x + 1 && this.fallingBrick[idx].y == this.fallingBrick[2].y) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y + 1; 
-            } else if(this.fallingBrick[idx].x == this.fallingBrick[2].x + 2 && this.fallingBrick[idx].y == this.fallingBrick[2].y) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y + 2; 
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x +1  && this.fallingBrick[idx].y == this.fallingBrick[2].y +1) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x -1;  
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y +1) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x - 1;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x && this.fallingBrick[idx].y == this.fallingBrick[2].y +2) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x - 2;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -1&& this.fallingBrick[idx].y == this.fallingBrick[2].y +1) {
-                this.fallingBrick[idx].y = this.fallingBrick[2].y -1;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -1 && this.fallingBrick[idx].y == this.fallingBrick[2].y) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y -1;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -2 && this.fallingBrick[idx].y == this.fallingBrick[2].y) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y -2;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -1 && this.fallingBrick[idx].y == this.fallingBrick[2].y -1) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x +1;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x +2 && this.fallingBrick[idx].y == this.fallingBrick[2].y -1) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x +1;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y +2;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x +1 && this.fallingBrick[idx].y == this.fallingBrick[2].y +2) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x -2;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y +1;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -2 && this.fallingBrick[idx].y == this.fallingBrick[2].y +1) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x -1;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y -2;
-            } else if (this.fallingBrick[idx].x == this.fallingBrick[2].x -1 && this.fallingBrick[idx].y == this.fallingBrick[2].y -2) {
-                this.fallingBrick[idx].x = this.fallingBrick[2].x +2;
-                this.fallingBrick[idx].y = this.fallingBrick[2].y -1;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x && this.fallBrick[idx].y == this.fallBrick[2].y -1) {
+                this.fallBrick[idx].x = this.fallBrick[2].x + 1;
+                this.fallBrick[idx].y = this.fallBrick[2].y; 
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x && this.fallBrick[idx].y == this.fallBrick[2].y -2) {
+                this.fallBrick[idx].x = this.fallBrick[2].x + 2;
+                this.fallBrick[idx].y = this.fallBrick[2].y; 
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x + 1 && this.fallBrick[idx].y == this.fallBrick[2].y -1) {
+                this.fallBrick[idx].y = this.fallBrick[2].y + 1;  
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x + 1 && this.fallBrick[idx].y == this.fallBrick[2].y) {
+                this.fallBrick[idx].x = this.fallBrick[2].x;
+                this.fallBrick[idx].y = this.fallBrick[2].y + 1; 
+            } else if(this.fallBrick[idx].x == this.fallBrick[2].x + 2 && this.fallBrick[idx].y == this.fallBrick[2].y) {
+                this.fallBrick[idx].x = this.fallBrick[2].x;
+                this.fallBrick[idx].y = this.fallBrick[2].y + 2; 
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x +1  && this.fallBrick[idx].y == this.fallBrick[2].y +1) {
+                this.fallBrick[idx].x = this.fallBrick[2].x -1;  
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x && this.fallBrick[idx].y == this.fallBrick[2].y +1) {
+                this.fallBrick[idx].x = this.fallBrick[2].x - 1;
+                this.fallBrick[idx].y = this.fallBrick[2].y;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x && this.fallBrick[idx].y == this.fallBrick[2].y +2) {
+                this.fallBrick[idx].x = this.fallBrick[2].x - 2;
+                this.fallBrick[idx].y = this.fallBrick[2].y;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x -1&& this.fallBrick[idx].y == this.fallBrick[2].y +1) {
+                this.fallBrick[idx].y = this.fallBrick[2].y -1;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x -1 && this.fallBrick[idx].y == this.fallBrick[2].y) {
+                this.fallBrick[idx].x = this.fallBrick[2].x;
+                this.fallBrick[idx].y = this.fallBrick[2].y -1;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x -2 && this.fallBrick[idx].y == this.fallBrick[2].y) {
+                this.fallBrick[idx].x = this.fallBrick[2].x;
+                this.fallBrick[idx].y = this.fallBrick[2].y -2;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x -1 && this.fallBrick[idx].y == this.fallBrick[2].y -1) {
+                this.fallBrick[idx].x = this.fallBrick[2].x +1;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x +2 && this.fallBrick[idx].y == this.fallBrick[2].y -1) {
+                this.fallBrick[idx].x = this.fallBrick[2].x +1;
+                this.fallBrick[idx].y = this.fallBrick[2].y +2;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x +1 && this.fallBrick[idx].y == this.fallBrick[2].y +2) {
+                this.fallBrick[idx].x = this.fallBrick[2].x -2;
+                this.fallBrick[idx].y = this.fallBrick[2].y +1;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x -2 && this.fallBrick[idx].y == this.fallBrick[2].y +1) {
+                this.fallBrick[idx].x = this.fallBrick[2].x -1;
+                this.fallBrick[idx].y = this.fallBrick[2].y -2;
+            } else if (this.fallBrick[idx].x == this.fallBrick[2].x -1 && this.fallBrick[idx].y == this.fallBrick[2].y -2) {
+                this.fallBrick[idx].x = this.fallBrick[2].x +2;
+                this.fallBrick[idx].y = this.fallBrick[2].y -1;
+            }
+            if (this.fallBrick[idx].x < 0) {
+                this.moveRightBrick();
             }
         }
         this.drawBoard();
         this.displayFallBrick(random);
-         this.displayLandBrick();
+        this.displayLandBrick();
+    }
+    impactBrick(){
+
     }
     clearBrick() {};
     earnScore() {};
 }
-//Khởi tạo màn chơi
 let newGame = new GameBoard(25,10);
 newGame.makeDataBoard();
 newGame.drawBoard();
 let random;
-let a=1;
+let brickNumber=1;
+let timeDelay = 500
 newGame.makeRandomBrick();
 console.log(`Số random: ${random}`);
 newGame.noticeNextBrick();
-console.log(`LandingBrick Data: ${newGame.fallingBrick}`)
+console.log(`LandingBrick Data: ${newGame.fallBrick}`)
 console.log(`LandBrick Data: ${newGame.landBrick}`);
-// Game Loop
+
 function autoDown() {
     newGame.autoDownBrick();
-    if (newGame.fallingBrick[0].y == 19 || newGame.fallingBrick[1].y == 19 || newGame.fallingBrick[2].y == 19 || newGame.fallingBrick[3].y == 19) {
-        a++;
-        console.log(`Dừng lần ${a}`);
+
+    if (newGame.fallBrick[0].y == 19 || newGame.fallBrick[1].y == 19 || newGame.fallBrick[2].y == 19 || newGame.fallBrick[3].y == 19) {
+        timeDelay = 500
+        brickNumber++;
+        console.log(`Dừng lần ${brickNumber}`);
         newGame.getDataLandBrick();
         newGame.makeRandomBrick();
         console.log(`Số random: ${random}`);
         newGame.noticeNextBrick();
+    } else {
+        for (const idx in newGame.fallBrick) {
+            for (const idx2 in newGame.landBrick) {
+                if (newGame.fallBrick[idx].x == newGame.landBrick[idx2].x && newGame.fallBrick[idx].y == newGame.landBrick[idx2].y-1) {
+                    timeDelay = 500
+                    brickNumber++;
+                    console.log(`Dừng lần ${brickNumber}`);
+                    newGame.getDataLandBrick();
+                    newGame.makeRandomBrick();
+                    console.log(`Số random: ${random}`);
+                    newGame.noticeNextBrick();
+                }
+            }
+        }
     }
-    setTimeout(autoDown,500);
+    setTimeout(autoDown,timeDelay);
+    console.log(timeDelay);
 }
 autoDown();
-// Phím chức năng: sang trái, sang phải, xoay brick, rơi xuống nhanh
+
 onkeydown = function(evt) {
     switch (evt.keyCode) {
         case 37:
-            if (newGame.fallingBrick[0].x != 0 && newGame.fallingBrick[1].x != 0 && newGame.fallingBrick[2].x != 0 && newGame.fallingBrick[3].x != 0 ) {
+            if (newGame.fallBrick[0].x != 0 && newGame.fallBrick[1].x != 0 && newGame.fallBrick[2].x != 0 && newGame.fallBrick[3].x != 0 ) {
                 newGame.moveLeftBrick();
-                console.log(newGame.fallingBrick[1].x);
+                console.log(newGame.fallBrick[1].x);
+            } else {
+                for (const idx in newGame.fallBrick) {
+                    for (const idx2 in newGame.landBrick) {
+                        if (newGame.fallBrick[idx].x == newGame.landBrick[idx2].x-1 || newGame.fallBrick[idx].x == newGame.landBrick[idx2].x+1 && newGame.fallBrick[idx].y == newGame.landBrick[idx2].y) {
+
+                        }
+                    }
+                }
             }
             break;
         case 38:
-            if (newGame.fallingBrick[0].y < 20 || newGame.fallingBrick[1].y < 20 || newGame.fallingBrick[2].y < 20 || newGame.fallingBrick[3].y < 20) {
+            if (newGame.fallBrick[0].y < 20 || newGame.fallBrick[1].y < 20 || newGame.fallBrick[2].y < 20 || newGame.fallBrick[3].y < 20) {
                 newGame.rolateBrick();
             }
             break;
         case 39:
-            if (newGame.fallingBrick[0].x != 9 && newGame.fallingBrick[1].x != 9 && newGame.fallingBrick[2].x != 9 && newGame.fallingBrick[3].x != 9 ) {
+            if (newGame.fallBrick[0].x != 9 && newGame.fallBrick[1].x != 9 && newGame.fallBrick[2].x != 9 && newGame.fallBrick[3].x != 9 ) {
                 newGame.moveRightBrick();
-                console.log(newGame.fallingBrick[1].x);
+                console.log(newGame.fallBrick[1].x);
             }
             break;
         case 40:
-            stopAutoDown();
-            let downBrickFast = setInterval(moveDown,30);
-            function moveDown() {
-            newGame.autoDownBrick();
-            for (const idx in newGame.fallingBrick) {
-                if (newGame.fallingBrick[idx].y == newGame.dataBoard[24][0].y) {
-                    stopDown();
-                    newGame.getDataLandBrick();
-                }
-            }
-            }
-            function stopDown() {
-            clearInterval(downBrickFast);
-            }
+            timeDelay = 20;
             break;
         default:
             break;
-    }
+        }
+}
+
+if (newGame.fallBrick[0].x < 0 || newGame.fallBrick[1].x < 0 || newGame.fallBrick[2].x < 0 || newGame.fallBrick[3].x < 0 ) {
+    newGame.moveRightBrick();
+    console.log ('Vượt giơi hạn, back sang phải')
 }
