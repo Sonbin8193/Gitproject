@@ -15,7 +15,7 @@ class GameBoard {
         this.dataBoard = [];
         this.fallBrick = [];
         this.landBrick = [];
-        this.brick = null;
+        this.breakBrick = 1;
         this.nextBrick = null;
         this.score = 0;
         this.leftNoticeBoard = 50 + this.left + SPACE + this.col*(SPACE+BRICK_SIZE);
@@ -186,7 +186,9 @@ class GameBoard {
     drawFallBrick() {
         for (const idx in this.fallBrick) {
             if (this.fallBrick[idx].y > -1) {
-                ctx.fillRect(this.left+SPACE+this.fallBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.fallBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
+                if (this.fallBrick[idx].x>-1 && this.fallBrick[idx].x <this.col) {
+                    ctx.fillRect(this.left+SPACE+this.fallBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.fallBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
+                }
             }
         } 
     }
@@ -276,14 +278,15 @@ class GameBoard {
     this.displayFallBrick(random);
     this.displayLandBrick();
     }
-    notMoveBrick() {
-        for (const idx in this.fallBrick) {
-            this.fallBrick[idx].x += 0;
-        }
-    }
     //xoay Brick
     rolateBrick() {
         for (const idx in this.fallBrick) {
+            if (this.fallBrick[idx].x < 0) {
+                this.moveRightBrick();
+            }
+            if (this.fallBrick[idx].x > this.col-1) {
+                this.moveLeftBrick();
+            }
             if (this.fallBrick[idx].x == this.fallBrick[2].x && this.fallBrick[idx].y == this.fallBrick[2].y ) {
                 continue;
             } else if (this.fallBrick[idx].x == this.fallBrick[2].x && this.fallBrick[idx].y == this.fallBrick[2].y -1) {
@@ -331,40 +334,105 @@ class GameBoard {
                 this.fallBrick[idx].x = this.fallBrick[2].x +2;
                 this.fallBrick[idx].y = this.fallBrick[2].y -1;
             }
-            if (this.fallBrick[idx].x < 0) {
-                this.moveRightBrick();
-            }
         }
         this.drawBoard();
         this.displayFallBrick(random);
         this.displayLandBrick();
     }
-    impactBrick(){
-
+    moveDownLandBrick() {
+        for (const idx in this.landBrick) {
+                this.landBrick[idx].y +=1
+        }
     }
-    clearBrick() {};
-    earnScore() {};
+
+    clearBrick() {
+        if (this.landBrick.length >10) {
+            console.log(`Bắt đầu check`);
+            for (let j = 0; j < this.landBrick.length -8; j++) {
+                for (let i = 0; i < 10; i++) {
+                    if (this.landBrick[j].y != this.landBrick[j+i].y) {
+                        console.log(`Check thất bại`);
+                        this.breakBrick = 0;
+                        break;
+                    } else {
+                        if (this.landBrick[j].status != -1 &&  this.landBrick[j+i].status != -1) {
+                            this.breakBrick++;
+                            console.log(`Kiểm tra liền kề ${this.breakBrick}`);
+                            console.log(`Các ô liền kề ${this.landBrick[j+i]}`);
+                        }
+                    }
+                }
+                if (this.breakBrick == 10) {
+                    this.breakBrick = 0;
+                    this.landBrick.splice(j,10);
+                    console.log(`Đã xoá hàng`);
+                    this.moveDownLandBrick();
+                    this.drawBoard();
+                    this.displayFallBrick(random);
+                    this.displayLandBrick();
+                }
+            }
+        }
+    }
+    earnScore() {}
 }
 let newGame = new GameBoard(25,10);
 newGame.makeDataBoard();
 newGame.drawBoard();
 let random;
-let brickNumber=1;
 let timeDelay = 500
+let vaCham = false; // kiểm tra va chạm
 newGame.makeRandomBrick();
 console.log(`Số random: ${random}`);
 newGame.noticeNextBrick();
-console.log(`LandingBrick Data: ${newGame.fallBrick}`)
+console.log(`LandingBrick Data: ${newGame.fallBrick}`);
 console.log(`LandBrick Data: ${newGame.landBrick}`);
 
-function autoDown() {
-    newGame.autoDownBrick();
+// Kiểm tra Brick xoay vị vượt ra ngoài khung
+function kiemTraNgoaiBien() {
+    if (newGame.fallBrick[0].x < 0 || newGame.fallBrick[1].x < 0 || newGame.fallBrick[2].x < 0 || newGame.fallBrick[3].x < 0 ) {
+        newGame.moveRightBrick();
+        console.log ('Vượt giơi hạn, back sang phải')
+    }
+    if (newGame.fallBrick[0].x > newGame.col-1 || newGame.fallBrick[1].x > newGame.col-1 || newGame.fallBrick[2].x > newGame.col-1 || newGame.fallBrick[3].x > newGame.col-1 ) {
+        newGame.moveLeftBrick();
+        console.log ('Vượt giơi hạn, back sang trái')
+    }
+}
+// Kiểm tra Brick đã chạm với các khối đã hạ cách chưa
+function kiemTraVaCham () {
+    vaCham = false;
+    for (const idx in newGame.fallBrick) {
+        for (const idx2 in newGame.landBrick) {
+            if (newGame.fallBrick[idx].y == newGame.landBrick[idx2].y ) {
+                if (newGame.fallBrick[idx].x == newGame.landBrick[idx2].x -1 || newGame.fallBrick[idx].x == newGame.landBrick[idx2].x +1) {
+                        vaCham = true;
+                        break;
+                }
+            }
+        }
+     }
+    return vaCham;
 
+}
+
+function stopGame() {
+    for (const idx in newGame.landBrick) {
+        if (newGame.landBrick[idx].y == 0) {
+            timeDelay = 0;
+            ctx.font = "200px Georgia";
+            ctx.fillText('Game Over', 300, 300);
+        }
+    }
+}
+function gameLoop() {
+    kiemTraNgoaiBien();
+    newGame.autoDownBrick();
     if (newGame.fallBrick[0].y == 19 || newGame.fallBrick[1].y == 19 || newGame.fallBrick[2].y == 19 || newGame.fallBrick[3].y == 19) {
-        timeDelay = 500
-        brickNumber++;
-        console.log(`Dừng lần ${brickNumber}`);
+        timeDelay = 500;
+        stopGame();
         newGame.getDataLandBrick();
+        newGame.clearBrick();
         newGame.makeRandomBrick();
         console.log(`Số random: ${random}`);
         newGame.noticeNextBrick();
@@ -372,10 +440,10 @@ function autoDown() {
         for (const idx in newGame.fallBrick) {
             for (const idx2 in newGame.landBrick) {
                 if (newGame.fallBrick[idx].x == newGame.landBrick[idx2].x && newGame.fallBrick[idx].y == newGame.landBrick[idx2].y-1) {
-                    timeDelay = 500
-                    brickNumber++;
-                    console.log(`Dừng lần ${brickNumber}`);
+                    timeDelay = 500;
+                    stopGame();
                     newGame.getDataLandBrick();
+                    newGame.clearBrick();
                     newGame.makeRandomBrick();
                     console.log(`Số random: ${random}`);
                     newGame.noticeNextBrick();
@@ -383,36 +451,27 @@ function autoDown() {
             }
         }
     }
-    setTimeout(autoDown,timeDelay);
-    console.log(timeDelay);
+    setTimeout(gameLoop,timeDelay);
 }
-autoDown();
+gameLoop();
 
 onkeydown = function(evt) {
     switch (evt.keyCode) {
         case 37:
-            if (newGame.fallBrick[0].x != 0 && newGame.fallBrick[1].x != 0 && newGame.fallBrick[2].x != 0 && newGame.fallBrick[3].x != 0 ) {
+            kiemTraVaCham();
+            if (newGame.fallBrick[0].x != 0 && newGame.fallBrick[1].x != 0 && newGame.fallBrick[2].x != 0 && newGame.fallBrick[3].x != 0 && vaCham == false ) {
                 newGame.moveLeftBrick();
-                console.log(newGame.fallBrick[1].x);
-            } else {
-                for (const idx in newGame.fallBrick) {
-                    for (const idx2 in newGame.landBrick) {
-                        if (newGame.fallBrick[idx].x == newGame.landBrick[idx2].x-1 || newGame.fallBrick[idx].x == newGame.landBrick[idx2].x+1 && newGame.fallBrick[idx].y == newGame.landBrick[idx2].y) {
-
-                        }
-                    }
-                }
             }
             break;
         case 38:
-            if (newGame.fallBrick[0].y < 20 || newGame.fallBrick[1].y < 20 || newGame.fallBrick[2].y < 20 || newGame.fallBrick[3].y < 20) {
+            if (newGame.fallBrick[0].y < newGame.row-5 || newGame.fallBrick[1].y < newGame.row-5 || newGame.fallBrick[2].y < newGame.row-5 || newGame.fallBrick[3].y < newGame.row-5) {
                 newGame.rolateBrick();
             }
             break;
         case 39:
-            if (newGame.fallBrick[0].x != 9 && newGame.fallBrick[1].x != 9 && newGame.fallBrick[2].x != 9 && newGame.fallBrick[3].x != 9 ) {
+            kiemTraVaCham();
+            if (newGame.fallBrick[0].x != newGame.col -1 && newGame.fallBrick[1].x != newGame.col -1 && newGame.fallBrick[2].x != newGame.col -1 && newGame.fallBrick[3].x != newGame.col -1 && vaCham ==false ) {
                 newGame.moveRightBrick();
-                console.log(newGame.fallBrick[1].x);
             }
             break;
         case 40:
@@ -423,7 +482,3 @@ onkeydown = function(evt) {
         }
 }
 
-if (newGame.fallBrick[0].x < 0 || newGame.fallBrick[1].x < 0 || newGame.fallBrick[2].x < 0 || newGame.fallBrick[3].x < 0 ) {
-    newGame.moveRightBrick();
-    console.log ('Vượt giơi hạn, back sang phải')
-}
