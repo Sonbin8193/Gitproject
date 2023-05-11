@@ -1,31 +1,52 @@
-const BRICK_SIZE = 20;
-const BRICK_MINI = 15
-const SPACE = 3;
 let canvas = document.getElementById('myCanvas');
 let ctx = canvas.getContext('2d');
-let background = new Image();
-background.src = './media/TetrisLogoWallpaper.png';
-background.onload = function(){
-    ctx.drawImage(background,0,0);   
+let gameover = document.getElementById('overimg');
+let startGame = document.getElementById('startGame');
+let muteMusic = document.getElementById('muteMusic');
+let onMusic = document.getElementById('onMusic');
+ctx.drawImage(startGame,450,700,200,80);
+ctx.drawImage(muteMusic,665,600,50,50);
+ctx.drawImage(onMusic,665,540,50,50);
+
+let ingameMusic = document.getElementById("ingameMusic");
+document.getElementById("ingameMusic").loop = true;
+let overMusic = document.getElementById("overMusic");
+
+function playIngameMusic() {
+    ingameMusic.play();
+}
+function pauseIngameMusic() {
+    ingameMusic.pause();
+}
+function playGameOverMusic() {
+    overMusic.play();
+}
+function pauseGameOverMusic() {
+    overMusic.pause();
 }
 
+const BRICK_SIZE = 20; // kích thước ô gạch màn hình chính
+const BRICK_MINI = 15 // kích thước ô gạch màn hình phụ
+const SPACE = 3; // khoảng cách giữa các ô
+// Tạo class Gameboard
 class GameBoard {
     constructor(row, col) {
-        this.left = 350;
-        this.top = 92
-        this.col = col;
-        this.row = row;
-        this.width = SPACE + this.col*(SPACE+BRICK_SIZE);
-        this.height = SPACE + (this.row - 5)*(SPACE+BRICK_SIZE);
-        this.dataBoard = [];
-        this.fallBrick = [];
-        this.landBrick = [];
-        this.breakBrick = 1;
-        this.rowsBreak = 1;
-        this.nextBrick = null;
+        this.left = 350; // khoảng cách trái của bảng chơi 
+        this.top = 92 // khoảng cách trên của bảng chơi
+        this.col = col; // số hàng màn chơi
+        this.row = row; // số cột màn chiow
+        this.width = SPACE + this.col*(SPACE+BRICK_SIZE); // chiều dài bảng chơi
+        this.height = SPACE + (this.row - 5)*(SPACE+BRICK_SIZE); // chiều cao bảng chơi
+        this.dataBoard = []; // dữ liệu hiển thị bảng chơi
+        this.fallBrick = []; // dữ liệu gạch rơi
+        this.landBrick = []; // dữ liệu gạch hạ cánh
+        this.breakBrick = 1; // ô gạch kiểm tra trạng thái nổ
+        this.rowsBreak = 0; // hàng gạch bị ổ
+        this.nextBrick = null; // hiển thị viên gạch sắp tới
         this.score = 0;
-        this.leftNoticeBoard = 35 + this.left + SPACE + this.col*(SPACE+BRICK_SIZE);
-        this.topNoticeBoard = (45 + this.left + SPACE + this.row*(SPACE+BRICK_SIZE))/3;
+        this.highScore = 0;
+        this.leftNoticeBoard = 35 + this.left + SPACE + this.col*(SPACE+BRICK_SIZE); // khoảng cách trái của màn hình phụ
+        this.topNoticeBoard = (45 + this.left + SPACE + this.row*(SPACE+BRICK_SIZE))/3; // khoảng cách trên của màn hình phụ
     }
     // Tạo dữ liệu màn chơi
     makeDataBoard() {
@@ -81,10 +102,10 @@ class GameBoard {
     drawNextBrick(random) {
         if (random == 0) {
             // Lấy thông tin brick để hiển thị ra bảng chơi game
-            this.dataBoard[0][4].status = 0;
-            this.dataBoard[1][3].status = 0;
-            this.dataBoard[1][4].status = 0;
+            this.dataBoard[0][6].status = 0;
             this.dataBoard[1][5].status = 0;
+            this.dataBoard[1][6].status = 0;
+            this.dataBoard[1][7].status = 0;
             this.getDataFallBrick();
             this.nextBrick = 'arrow';
             ctx.fillStyle = "red";
@@ -95,10 +116,10 @@ class GameBoard {
             ctx.fillRect(this.leftNoticeBoard + SPACE + 2*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 1*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
         }
         if (random == 1) {
-            this.dataBoard[0][3].status = 1;
-            this.dataBoard[0][4].status = 1;
-            this.dataBoard[1][3].status = 1;
-            this.dataBoard[1][4].status = 1;
+            this.dataBoard[0][5].status = 1;
+            this.dataBoard[0][6].status = 1;
+            this.dataBoard[1][5].status = 1;
+            this.dataBoard[1][6].status = 1;
             this.getDataFallBrick();
             this.nextBrick = 'square';
             ctx.fillStyle = "yellow";
@@ -108,10 +129,10 @@ class GameBoard {
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 1*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
         }
         if (random == 2) {
-            this.dataBoard[0][3].status = 2;
-            this.dataBoard[0][4].status = 2;
-            this.dataBoard[1][3].status = 2;
-            this.dataBoard[2][3].status = 2;
+            this.dataBoard[0][5].status = 2;
+            this.dataBoard[0][6].status = 2;
+            this.dataBoard[1][5].status = 2;
+            this.dataBoard[2][5].status = 2;
             this.getDataFallBrick();
             this.nextBrick = 'rightL';
             ctx.fillStyle = "violet";
@@ -121,10 +142,10 @@ class GameBoard {
             ctx.fillRect(this.leftNoticeBoard + SPACE + 0*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 2*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
         }
         if (random == 3) {
-            this.dataBoard[0][4].status = 3;
-            this.dataBoard[1][4].status = 3;
-            this.dataBoard[2][4].status = 3;
-            this.dataBoard[3][4].status = 3;
+            this.dataBoard[0][6].status = 3;
+            this.dataBoard[1][6].status = 3;
+            this.dataBoard[2][6].status = 3;
+            this.dataBoard[3][6].status = 3;
             this.getDataFallBrick();
             this.nextBrick = 'line';
             ctx.fillStyle = "blue";
@@ -134,10 +155,10 @@ class GameBoard {
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 3*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
         }
         if (random == 4) {
-            this.dataBoard[0][3].status = 4;
-            this.dataBoard[0][4].status = 4;
-            this.dataBoard[1][4].status = 4;
-            this.dataBoard[2][4].status = 4;
+            this.dataBoard[0][5].status = 4;
+            this.dataBoard[0][6].status = 4;
+            this.dataBoard[1][6].status = 4;
+            this.dataBoard[2][6].status = 4;
             this.getDataFallBrick();
             this.nextBrick = 'leftL';
             ctx.fillStyle = "green";
@@ -147,10 +168,10 @@ class GameBoard {
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 2*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
         }
         if (random == 5) {
-            this.dataBoard[0][3].status = 5;
-            this.dataBoard[0][4].status = 5;
-            this.dataBoard[1][4].status = 5;
-            this.dataBoard[1][5].status = 5;
+            this.dataBoard[0][5].status = 5;
+            this.dataBoard[0][6].status = 5;
+            this.dataBoard[1][6].status = 5;
+            this.dataBoard[1][7].status = 5;
             this.getDataFallBrick();
             this.nextBrick = 'rightZ';
             ctx.fillStyle = "orange";
@@ -160,10 +181,10 @@ class GameBoard {
             ctx.fillRect(this.leftNoticeBoard + SPACE + 2*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 1*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
         }
         if (random == 6) {
-            this.dataBoard[0][4].status = 6;
-            this.dataBoard[0][5].status = 6;
-            this.dataBoard[1][4].status = 6;
-            this.dataBoard[1][3].status = 6;
+            this.dataBoard[0][6].status = 6;
+            this.dataBoard[0][7].status = 6;
+            this.dataBoard[1][6].status = 6;
+            this.dataBoard[1][5].status = 6;
             this.getDataFallBrick();
             this.nextBrick = 'leftZ';
             ctx.fillStyle = "pink";
@@ -254,10 +275,13 @@ class GameBoard {
                     ctx.fillStyle = "pink";
                     break;
             }
-            ctx.fillRect(this.left+SPACE+this.landBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.landBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
+            if (this.landBrick[idx].y > -1) {
+                ctx.fillRect(this.left+SPACE+this.landBrick[idx].x*(SPACE+BRICK_SIZE),this.top+SPACE+ this.landBrick[idx].y*(SPACE+BRICK_SIZE),BRICK_SIZE,BRICK_SIZE);
+            }
+            
         } 
     }
-    // Brick rơi tự do ( Nhấn mũi tên xuống sẽ rơi nhanh hơn gấp đôi)
+    // Brick rơi tự do ( Nhấn mũi tên xuống sẽ rơi nhanh hơn)
     autoDownBrick() {
         for (const idx in this.fallBrick) {
                 this.fallBrick[idx].y += 1;
@@ -351,31 +375,33 @@ class GameBoard {
 
     clearBrick() {
         if (this.landBrick.length >this.col) {
-            console.log(`Bắt đầu check`);
+            console.log(`Bắt đầu check chuỗi ăn điểm`);
             for (let j = 0; j < this.landBrick.length-this.col; j++) {
-                for (let i = 0; i < this.col; i++) {
-                    if (this.landBrick[j].y != this.landBrick[j+i].y) {
+                for (let i = 0; i < this.landBrick.length; i++) {
+                    if (!this.landBrick[j+i].y || this.landBrick[j].y != this.landBrick[j+i].y) {
                         this.breakBrick = 0;
                         break;
                     } else {
                         if (this.landBrick[j].status != -1 &&  this.landBrick[j+i].status != -1) {
                             this.breakBrick++;
+                            console.log(`Chuỗi ăn: ${this.breakBrick}`);
                         }
                     }
-                }
-                if (this.breakBrick == this.col) {
-                    this.rowsBreak++;
-                    this.breakBrick = 0;
-                    for (let k = 0; k < this.landBrick.length; k++) {
-                        if (this.landBrick[k].y <this.landBrick[j].y) {
-                            this.landBrick[k].y +=1
+                    if (this.breakBrick == this.col) {
+                        this.rowsBreak++;
+                        this.breakBrick = 0;
+                        for (let k = 0; k < this.landBrick.length; k++) {
+                            if (this.landBrick[k].y <this.landBrick[j].y) {
+                                this.landBrick[k].y +=1
+                            }
                         }
+                        this.landBrick.splice(j,this.col);
+                        this.drawBoard();
+                        this.displayFallBrick(random);
+                        this.displayLandBrick();
+                        j--;
+                        continue;
                     }
-                    this.landBrick.splice(j,this.col);
-                    this.drawBoard();
-                    this.displayFallBrick(random);
-                    this.displayLandBrick();
-                    j--;
                 }
             }
             this.score += this.earnScore(this.rowsBreak);;
@@ -385,20 +411,30 @@ class GameBoard {
     }
     earnScore(rowsBreak) {
         return (rowsBreak * (rowsBreak + 1)) / 2;
-      }
+    }
+    getHighScore() {
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+        }
+        return this.highScore;
+    }
 }
-// Khởi tạo đối tượng
+// Khởi tạo đối tượng & màn chơi
 let newGame = new GameBoard(30,12);
-newGame.makeDataBoard();
-newGame.drawBoard();
 let random;
 let timeDelay = 500 // thời gian brick rơi
 let vaCham = false; // kiểm tra va chạm
+
+newGame.makeDataBoard();
+newGame.drawBoard();
 newGame.makeRandomBrick();
-console.log(`Số random: ${random}`);
-newGame.noticeNextBrick();
-console.log(`LandingBrick Data: ${newGame.fallBrick}`);
-console.log(`LandBrick Data: ${newGame.landBrick}`);
+function makeANewGame() {
+    timeDelay = 500;
+    console.log(`Số random: ${random}`);
+    newGame.noticeNextBrick();
+    console.log(`LandingBrick Data: ${newGame.fallBrick}`);
+    console.log(`LandBrick Data: ${newGame.landBrick}`);
+}
 
 // Kiểm tra Brick xoay vị vượt ra ngoài khung
 function kiemTraNgoaiBien() {
@@ -431,23 +467,43 @@ function kiemTraVaCham () {
 function compare(a, b) {
     return b.y - a.y;
 }
-
+// Kết thúc lượt chơi
 function stopGame() {
     for (const idx in newGame.landBrick) {
         if (newGame.landBrick[idx].y == 0) {
-            timeDelay = 99999999;
+            newGame.fallBrick = [];
+            newGame.displayFallBrick();
+            timeDelay = 9999999999;
+            ctx.drawImage(gameover,200,200);
+            pauseIngameMusic();
+            playGameOverMusic();
         }
     }
 }
+//Hiển thị điểm
+function displayScore(score) {
+    ctx.font = "30px Calibri";
+    ctx.clearRect(650,245,80,25);
+    ctx.fillStyle = "orange";
+    ctx.fillText(`${score}`, 655,270);
+}
+
+function displayHighScore(highScore) {
+    ctx.font = "30px Calibri";
+    ctx.clearRect(650,150,80,25);
+    ctx.fillStyle = "orange";
+    ctx.fillText(`${highScore}`, 655,175);
+}
+
 function gameLoop() {
+    kiemTraNgoaiBien();
+    newGame.autoDownBrick();
     for (const idx in newGame.landBrick) {
         if (newGame.landBrick[idx].y == -1 && newGame.landBrick[idx].status != -1) {
             stopGame();
             break;
         }
     }
-    kiemTraNgoaiBien();
-    newGame.autoDownBrick();
     if (newGame.fallBrick[0].y == newGame.row-6 || newGame.fallBrick[1].y == newGame.row-6 || newGame.fallBrick[2].y == newGame.row-6 || newGame.fallBrick[3].y == newGame.row-6) {
         timeDelay = 500;
         newGame.getDataLandBrick().sort(compare);
@@ -470,10 +526,12 @@ function gameLoop() {
             }
         }
     }
-    console.log(newGame.score);
+    console.log(`Điểm hiện tại: ${newGame.score}`);
+    displayScore(newGame.score);
+    newGame.getHighScore();
+    displayHighScore(newGame.highScore);
     setTimeout(gameLoop,timeDelay);
 }
-gameLoop();
 
 onkeydown = function(evt) {
     switch (evt.keyCode) {
@@ -500,4 +558,49 @@ onkeydown = function(evt) {
         default:
             break;
         }
+}
+// Bắt đầu chơi game
+let startAGame = true;
+canvas.onclick = function myFunction(event) {
+    let x = event.offsetX ;
+    let y = event.offsetY;
+    toaDoClick = {
+        x: x,
+        y: y
+    }
+    console.log(`Click: ${toaDoClick.x}, ${toaDoClick.y}`);
+    if (toaDoClick.x >445 && toaDoClick.x <525 && toaDoClick.y > 605 && toaDoClick.y < 645) {
+        timeDelay = 500;
+        ctx.clearRect(230,240,600,600);
+        newGame.landBrick = [];
+        newGame.drawBoard();
+        newGame.displayFallBrick(random);
+        newGame.displayLandBrick();
+        newGame.noticeNextBrick();
+        gameLoop();
+        pauseGameOverMusic();
+        playIngameMusic();
+        ctx.drawImage(startGame,450,700,200,80);
+        ctx.drawImage(muteMusic,665,600,50,50);
+        ctx.drawImage(onMusic,665,540,50,50);
+        newGame.score = 0;
+    }
+    if (toaDoClick.x >450 && toaDoClick.x <640 && toaDoClick.y > 700 && toaDoClick.y < 770 && startAGame == true) {
+        makeANewGame();
+        gameLoop();
+        playIngameMusic();
+        startAGame = false;
+        console.log(`Bắt đầu chơi`);
+        newGame.score = 0;
+    }
+    if (toaDoClick.x >665 && toaDoClick.x <710 && toaDoClick.y > 540 && toaDoClick.y < 585) {
+        playIngameMusic();
+    }
+    if (toaDoClick.x >665 && toaDoClick.x <710 && toaDoClick.y > 600 && toaDoClick.y < 645) {
+        pauseIngameMusic();
+    }
+    if (toaDoClick.x >560 && toaDoClick.x <650 && toaDoClick.y > 600 && toaDoClick.y < 645) {
+        alert('Chơi tiếp đi, không thích chơi cũng phải chơi');
+    }
+    return startAGame;
 }
