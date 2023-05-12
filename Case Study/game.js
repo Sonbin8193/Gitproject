@@ -34,13 +34,13 @@ class GameBoard {
         this.left = 350; // khoảng cách trái của bảng chơi 
         this.top = 92 // khoảng cách trên của bảng chơi
         this.col = col; // số hàng màn chơi
-        this.row = row; // số cột màn chơi
+        this.row = row; // số cột màn chiow
         this.width = SPACE + this.col*(SPACE+BRICK_SIZE); // chiều dài bảng chơi
         this.height = SPACE + (this.row - 5)*(SPACE+BRICK_SIZE); // chiều cao bảng chơi
         this.dataBoard = []; // dữ liệu hiển thị bảng chơi
         this.fallBrick = []; // dữ liệu gạch rơi
         this.landBrick = []; // dữ liệu gạch hạ cánh
-        this.breakBrick = 0; // ô gạch kiểm tra trạng thái nổ
+        this.breakBrick = 1; // ô gạch kiểm tra trạng thái nổ
         this.rowsBreak = 0; // hàng gạch bị ổ
         this.nextBrick = null; // hiển thị viên gạch sắp tới
         this.score = 0;
@@ -188,7 +188,7 @@ class GameBoard {
             this.dataBoard[1][5].status = 6;
             this.getDataFallBrick();
             this.nextBrick = 'leftZ';
-            ctx.fillStyle = "pink";
+            ctx.fillStyle = "brown";
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
             ctx.fillRect(this.leftNoticeBoard + SPACE + 2*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 0*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
             ctx.fillRect(this.leftNoticeBoard + SPACE + 1*(SPACE+BRICK_MINI),this.topNoticeBoard+SPACE+ 1*(SPACE+BRICK_MINI),BRICK_MINI,BRICK_MINI);
@@ -242,7 +242,7 @@ class GameBoard {
                 ctx.fillStyle = "orange";
                 break;
             case 6:
-                ctx.fillStyle = "pink";
+                ctx.fillStyle = "brown";
                 break;
             default:
                 ctx.fillStyle = "#D3D3D3";
@@ -273,7 +273,7 @@ class GameBoard {
                     ctx.fillStyle = "orange";
                     break;
                     case 6:
-                    ctx.fillStyle = "pink";
+                    ctx.fillStyle = "brown";
                     break;
             }
             if (this.landBrick[idx].y > -1) {
@@ -373,6 +373,7 @@ class GameBoard {
     moveDownLandBrick(idx) {
         this.landBrick[idx].y +=1
     }
+
     clearBrick() {
         if (this.landBrick.length >this.col) {
             console.log(`Bắt đầu check chuỗi ăn điểm`);
@@ -440,6 +441,7 @@ function makeANewGame() {
     console.log(`Số random: ${random}`);
     newGame.noticeNextBrick();
 }
+
 // Kiểm tra Brick xoay vị vượt ra ngoài khung
 function kiemTraNgoaiBien() {
     if (newGame.fallBrick[0].x < 0 || newGame.fallBrick[1].x < 0 || newGame.fallBrick[2].x < 0 || newGame.fallBrick[3].x < 0 ) {
