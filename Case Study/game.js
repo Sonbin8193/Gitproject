@@ -77,6 +77,7 @@ class GameBoard {
     makeRandomBrick() {
         random = Math.round(Math.random()*6); // => chỉnh rơi brick
         this.displayFallBrick(random);
+        this.breakBrick = 1;
         return random;
     }
     // Lấy dữ liệu vị trí ô gạch xuất hiện
@@ -376,20 +377,23 @@ class GameBoard {
     clearBrick() {
         if (this.landBrick.length >this.col) {
             console.log(`Bắt đầu check chuỗi ăn điểm`);
-            for (let j = 0; j < this.landBrick.length-this.col; j++) {
-                for (let i = 0; i < this.landBrick.length; i++) {
-                    if (!this.landBrick[j+i].y || this.landBrick[j].y != this.landBrick[j+i].y) {
-                        this.breakBrick = 0;
+            for (let j = 0; j < this.landBrick.length - this.col -1; j++) {
+                this.breakBrick = 1;
+                for (let i = 1; i < this.col; i++) {
+                    if (this.landBrick[j].y != this.landBrick[j+i].y) {
+                        this.breakBrick = 1;
                         break;
                     } else {
-                        if (this.landBrick[j].status != -1 &&  this.landBrick[j+i].status != -1) {
+                        if (this.landBrick[j].status != -1 && this.landBrick[j+i].status != -1 && this.landBrick[j].y == this.landBrick[j+i].y) {
                             this.breakBrick++;
+                            console.log(j , i ,this.landBrick[j].status, this.landBrick[j+i].status, this.landBrick[j].y, this.landBrick[j+i].y  );
                             console.log(`Chuỗi ăn: ${this.breakBrick}`);
                         }
                     }
                     if (this.breakBrick == this.col) {
+                        console.log(`Chuỗi ăn: ${this.breakBrick} tại ${j} ${i}`);
                         this.rowsBreak++;
-                        this.breakBrick = 0;
+                        this.breakBrick = 1;
                         for (let k = 0; k < this.landBrick.length; k++) {
                             if (this.landBrick[k].y <this.landBrick[j].y) {
                                 this.landBrick[k].y +=1
@@ -399,7 +403,11 @@ class GameBoard {
                         this.drawBoard();
                         this.displayFallBrick(random);
                         this.displayLandBrick();
-                        j--;
+                        if (j == 0) {
+                            j = -1;
+                        } else {
+                            j--;
+                        }
                         continue;
                     }
                 }
@@ -429,11 +437,9 @@ newGame.makeDataBoard();
 newGame.drawBoard();
 newGame.makeRandomBrick();
 function makeANewGame() {
-    timeDelay = 500;
+    timeDelay = 400;
     console.log(`Số random: ${random}`);
     newGame.noticeNextBrick();
-    console.log(`LandingBrick Data: ${newGame.fallBrick}`);
-    console.log(`LandBrick Data: ${newGame.landBrick}`);
 }
 
 // Kiểm tra Brick xoay vị vượt ra ngoài khung
@@ -462,10 +468,12 @@ function kiemTraVaCham () {
      }
     return vaCham;
 }
-
 // Sắp xếp lại các object của Brick đã hạ cách theo thứ tự tọa độ y
-function compare(a, b) {
+function compareY(a, b) {
     return b.y - a.y;
+}
+function compareX(a, b) {
+    return a.x - b.x;
 }
 // Kết thúc lượt chơi
 function stopGame() {
@@ -505,22 +513,23 @@ function gameLoop() {
         }
     }
     if (newGame.fallBrick[0].y == newGame.row-6 || newGame.fallBrick[1].y == newGame.row-6 || newGame.fallBrick[2].y == newGame.row-6 || newGame.fallBrick[3].y == newGame.row-6) {
-        timeDelay = 500;
-        newGame.getDataLandBrick().sort(compare);
+        timeDelay = 400;
+        newGame.getDataLandBrick().sort(compareX);
+        newGame.getDataLandBrick().sort(compareY);
+        console.log(newGame.landBrick);
         newGame.clearBrick();
         newGame.makeRandomBrick();
-        console.log(`Số random: ${random}`);
         newGame.noticeNextBrick();
     } else {
         for (const idx in newGame.fallBrick) {
             for (const idx2 in newGame.landBrick) {
                 if (newGame.fallBrick[idx].x == newGame.landBrick[idx2].x && newGame.fallBrick[idx].y == newGame.landBrick[idx2].y-1) {
-                    timeDelay = 500;
+                    timeDelay = 400;
                     stopGame();
-                    newGame.getDataLandBrick().sort(compare);
+                    newGame.getDataLandBrick().sort(compareX);
+                    newGame.getDataLandBrick().sort(compareY);
                     newGame.clearBrick();
                     newGame.makeRandomBrick();
-                    console.log(`Số random: ${random}`);
                     newGame.noticeNextBrick();
                 }
             }
